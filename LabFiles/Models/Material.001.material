@@ -1,0 +1,20 @@
+// Material.001 genrated by blender2ogre 0.6.0
+
+material MyMaterial
+{
+    receive_shadows on
+
+    technique
+    {
+        pass Material.001
+        {
+            ambient vertexcolour
+            diffuse vertexcolour
+            specular 0.3671699914283373 0.8465908765792847 0.6148763306694605 1.0 31.75
+            emissive vertexcolour
+
+
+
+        }
+    }
+}
