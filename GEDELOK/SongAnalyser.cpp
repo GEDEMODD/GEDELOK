@@ -26,7 +26,7 @@ SongAnalyser::SongAnalyser(SceneManager* sceneManager)
 	if (!BASS_Init(-1,44100,0,NULL,NULL)) Ogre::LogManager::getSingleton().logMessage("can't initialize BASS");
 	else
 	{
-		char file[MAX_PATH]="C:\\dab.mp3";
+		char file[MAX_PATH]="../dab.mp3";
 		if (!(chan=BASS_StreamCreateFile(FALSE,file,0,0,BASS_SAMPLE_LOOP))
 			&& !(chan=BASS_MusicLoad(FALSE,file,0,0,BASS_MUSIC_RAMP|BASS_SAMPLE_LOOP,0))) 
 			Ogre::LogManager::getSingleton().logMessage("can't play music file");
