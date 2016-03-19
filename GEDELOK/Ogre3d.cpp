@@ -1,9 +1,8 @@
-#include "SceneManager.h"
-#include "FrameListener.h"
-// Lab2
+#include "MySceneManager.h"
+#include "MyFrameListener.h"
 int main()
 {
-	SceneManager app;
+	MySceneManager app;
 	app.startup();
 	while( app.keepRunning() )
 	{

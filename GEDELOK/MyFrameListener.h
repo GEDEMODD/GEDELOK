@@ -7,7 +7,7 @@
 #include "OGRE\Ogre.h"
 
 #pragma once
-class FrameListener : public Ogre::FrameListener
+class MyFrameListener : public Ogre::FrameListener
 {
 private:
 	OIS::InputManager* _InputManager;
@@ -21,9 +21,9 @@ private:
 	Ogre::AnimationState* _aniStateTop;	
 
 public:
-	FrameListener(void);
-	~FrameListener(void);
-	FrameListener(Ogre::RenderWindow* win, Ogre::Camera* cam, Ogre::Viewport* viewport, Ogre::SceneNode* node, Ogre::Entity* ent);
+	MyFrameListener(void);
+	~MyFrameListener(void);
+	MyFrameListener(Ogre::RenderWindow* win, Ogre::Camera* cam, Ogre::Viewport* viewport, Ogre::SceneNode* node, Ogre::Entity* ent);
 	bool frameStarted(const Ogre::FrameEvent& evt);
 	void setNode(Ogre::SceneNode* node);
 	void setAniState(Ogre::AnimationState* state);

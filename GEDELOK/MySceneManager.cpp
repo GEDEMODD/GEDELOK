@@ -1,7 +1,7 @@
-#include "SceneManager.h"
+#include "MySceneManager.h"
 
 
-SceneManager::SceneManager(void)
+MySceneManager::MySceneManager(void)
 {
 	_sceneManager = NULL;
 	_root = NULL;
@@ -9,13 +9,13 @@ SceneManager::SceneManager(void)
 }
 
 
-SceneManager::~SceneManager(void)
+MySceneManager::~MySceneManager(void)
 {
 	delete _root;
 	delete _listener;
 }
 
-void SceneManager::loadResources()
+void MySceneManager::loadResources()
 {
 	Ogre::ConfigFile cf;
 	cf.load("../LabFiles/OgreConfig/resources_d.cfg");
@@ -36,13 +36,13 @@ void SceneManager::loadResources()
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 }
 
-int SceneManager::startup()
+int MySceneManager::startup()
 {
 	_root = new Ogre::Root("../LabFiles/OgreConfig/plugins_d.cfg");
 	if ( !_root->showConfigDialog() ) {
 		return -1;
 	}
-	// Create the RenderWindow and sceneManager
+	// Create the RenderWindow and MySceneManager
 	Ogre::RenderWindow* window = _root->initialise(true, "Ogre3D Beginner Guide");
 	_sceneManager = _root->createSceneManager(Ogre::ST_GENERIC);
 
@@ -57,7 +57,7 @@ int SceneManager::startup()
 	camera->setAspectRatio(Ogre::Real( viewport->getActualWidth() / Ogre::Real(viewport->getActualHeight() )));
 	
 	// Add Frame Listener
-	_listener = new FrameListener(window, camera, viewport, _SinbadNode, _SinbadEnt);
+	_listener = new MyFrameListener(window, camera, viewport, _SinbadNode, _SinbadEnt);
 	_root->addFrameListener(_listener);
 	
 	loadResources();
@@ -66,11 +66,12 @@ int SceneManager::startup()
 	return 0;
 }
 
-void SceneManager::createScene()
+void MySceneManager::createScene()
 {
-	//Ogre::Entity* ent = _sceneManager->createEntity("Sinbad", "Sinbad.mesh");
+	//Ogre::Entity* ent = _MySceneManager->createEntity("Sinbad", "Sinbad.mesh");
 	_SinbadEnt = _sceneManager->createEntity("Sinbad.mesh");
-	//_sceneManager->getRootSceneNode()->attachObject(ent);
+	printf("%s\n", _sceneManager->getName());
+	//_MySceneManager->getRootSceneNode()->attachObject(ent);
 	_sceneManager->setAmbientLight(Ogre::ColourValue(.5f,.5f,.5f));
 
 	// Define plane
@@ -97,15 +98,18 @@ void SceneManager::createScene()
 	_listener->setAniState(_SinbadEnt->getAnimationState("RunBase"));
 	_listener->setAniStateTop(_SinbadEnt->getAnimationState("RunTop"));
 	_listener->setNode(_SinbadNode);
+
+	_songAnalyser = new SongAnalyser(_sceneManager);
 }
 
-void SceneManager::renderOneFrame()
+void MySceneManager::renderOneFrame()
 {
 	Ogre::WindowEventUtilities::messagePump();
 	_keepRunning = _root->renderOneFrame();
+	_songAnalyser->update();
 }	
 
-bool SceneManager::keepRunning()
+bool MySceneManager::keepRunning()
 {
 	return _keepRunning;	
 }

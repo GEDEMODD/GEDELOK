@@ -1,19 +1,19 @@
-#include "FrameListener.h"
+#include "MyFrameListener.h"
 
 
-FrameListener::FrameListener(void)
+MyFrameListener::MyFrameListener(void)
 {
 }
 
 
-FrameListener::~FrameListener(void)
+MyFrameListener::~MyFrameListener(void)
 {
 	_InputManager->destroyInputObject(_Keyboard);
 	_InputManager->destroyInputObject(_Mouse);
 	OIS::InputManager::destroyInputSystem(_InputManager);
 }
 
-FrameListener::FrameListener(Ogre::RenderWindow* win, Ogre::Camera* cam, Ogre::Viewport* viewport, Ogre::SceneNode* node, Ogre::Entity* ent)
+MyFrameListener::MyFrameListener(Ogre::RenderWindow* win, Ogre::Camera* cam, Ogre::Viewport* viewport, Ogre::SceneNode* node, Ogre::Entity* ent)
 {
 	OIS::ParamList parameters;
 	unsigned int windowHandle = 0;
@@ -35,7 +35,7 @@ FrameListener::FrameListener(Ogre::RenderWindow* win, Ogre::Camera* cam, Ogre::V
 	_Mouse = static_cast<OIS::Mouse*>(_InputManager->createInputObject( OIS::OISMouse, false ));
 }
 
-bool FrameListener::frameStarted(const Ogre::FrameEvent& evt)
+bool MyFrameListener::frameStarted(const Ogre::FrameEvent& evt)
 {
 	_Keyboard->capture();
 	if( _Keyboard->isKeyDown( OIS::KC_ESCAPE ) ){ 
@@ -116,18 +116,18 @@ bool FrameListener::frameStarted(const Ogre::FrameEvent& evt)
 	return true;
 }
 
-void FrameListener::setNode(Ogre::SceneNode* node)
+void MyFrameListener::setNode(Ogre::SceneNode* node)
 {
 	_node = node;
 }
 
-void FrameListener::setAniState(Ogre::AnimationState* state)
+void MyFrameListener::setAniState(Ogre::AnimationState* state)
 {
 	_aniState = state;
 	_aniState->setLoop(false);
 }
 
-void FrameListener::setAniStateTop(Ogre::AnimationState* state)
+void MyFrameListener::setAniStateTop(Ogre::AnimationState* state)
 {
 	_aniStateTop = state;
 	_aniStateTop->setLoop(false);
