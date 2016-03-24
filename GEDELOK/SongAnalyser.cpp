@@ -32,11 +32,14 @@ SongAnalyser::SongAnalyser(SceneManager* sceneManager)
 			Ogre::LogManager::getSingleton().logMessage("can't play music file");
 		BASS_ChannelPlay(chan,FALSE);
 	}
+
+	logFile.open("log.txt");
 }
 
 SongAnalyser::~SongAnalyser()
 {
 	BASS_Free(); // free up BASS
+	logFile.close();
 }
 
 void SongAnalyser::update()
@@ -44,23 +47,69 @@ void SongAnalyser::update()
 	// analyse channel data
 	float fft[1024];
 	BASS_ChannelGetData(chan,fft,BASS_DATA_FFT2048); // get the FFT data
-	int x=0,y=0, b0=0;
+	int y=0, b0=0;
 
-	for (x=0;x<BANDS;x++) {
-		float sum=0;
-		int sc,b1=pow(2,x*10.0/(BANDS-1));
-		if (b1>1023) b1=1023;
-		if (b1<=b0) b1=b0+1; // make sure it uses at least 1 FFT bin
-		sc=10+b1-b0;
-		for (;b0<b1;b0++) sum+=fft[1+b0];
-		y=(sqrt(sum/log10((float)sc))*1.7*SPECHEIGHT)-4; // scale it
-		if (y>SPECHEIGHT) y=SPECHEIGHT; // cap it
+	for (int x = 0; x<BANDS; x++) {
+		float sum = 0;
+		int b1 = pow(2, x * 10.0 / (BANDS-1));
+		
+		if (b1 > 1023) {
+			b1 = 1023;
+		}
+		
+		if (b1 <= b0) {
+			b1 = b0 + 1; // make sure it uses at least 1 FFT bin
+		}
+
+		int sc = 10 + b1 - b0;
+		for (; b0 < b1; b0++) { 
+			sum += fft[1 + b0];
+		}
+		y = (sqrt(sum / log10((float)sc)) * 1.7 * SPECHEIGHT) - 4; // scale it
+		if (y>SPECHEIGHT) { 
+			y = SPECHEIGHT; // cap it
+		}
 
 		// x will range from 0 to BANDS
 		// y will range from 0 (sometimes negative) to SPECHEIGHT
 		// now let's visualize it with cubes
 		Vector3 currentpos = cubes[x]->getPosition();
-		cubes[x]->setScale(0.3,(float)y / 50.0, 0.3);
+		cubes[x]->setScale(0.3, (float)y / 50.0, 0.3);
 		cubes[x]->setPosition(currentpos.x, 0.5 * 106.08 * (float)y / 50.0 , currentpos.z);
 	}
 }
+
+void SongAnalyser::addObserver(SceneNode* newObserver)
+{
+	observers.push_back(newObserver);
+}
+
+void SongAnalyser::notify()
+{
+	// analyse channel data
+	float fft[1024];
+	BASS_ChannelGetData(chan, fft, BASS_DATA_FFT2048); // get the FFT data
+	int y = 0, b0 = 0;
+	DWORD val = BASS_ChannelGetLevel(chan);
+	for(unsigned int x = 0; x < observers.size(); x++) {
+		SceneNode *curr = observers[x];
+
+		logFile << val;
+		logFile << "\n";
+		long value = val * 0.00000001; 
+		if ( value >= 0.8) {
+			curr->setPosition(curr->getPosition().x, value,  curr->getPosition().z);
+			curr->setScale(value, value, value);
+		}
+	}
+	/*for (int i = 0; fft[i] != '\0'; i++) {
+		for(unsigned int x = 0; x < observers.size(); x++) {
+			SceneNode *curr = observers[x];
+			float value = fft[i] * 0.01;
+			if ( curr->getScale().x < value) {
+				curr->setScale(value, value, value);			
+			}
+		}
+	}*/
+}
+
