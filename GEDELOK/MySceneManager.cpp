@@ -100,6 +100,7 @@ void MySceneManager::createScene()
 	_listener->setNode(_SinbadNode);
 
 	_songAnalyser = new SongAnalyser(_sceneManager);
+	_songAnalyser->addObserver(_SinbadNode);
 }
 
 void MySceneManager::renderOneFrame()
@@ -107,6 +108,7 @@ void MySceneManager::renderOneFrame()
 	Ogre::WindowEventUtilities::messagePump();
 	_keepRunning = _root->renderOneFrame();
 	_songAnalyser->update();
+	_songAnalyser->notify();
 }	
 
 bool MySceneManager::keepRunning()
