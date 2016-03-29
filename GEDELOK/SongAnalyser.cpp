@@ -47,22 +47,16 @@ SongAnalyser::~SongAnalyser()
 void SongAnalyser::update()
 {
 	// analyse channel data
-	float fft[128];
+	float fft[FREQUENCIES];
 	BASS_ChannelGetData(chan,fft,BASS_DATA_FFT256); // get the FFT data
 	int y=0, b0=0;
-
-	for (int i = 0; i < 128; i++) {
-		logFile << fft[i];
-		logFile << "; ";
-	}
-	logFile << "\n";
 
 	for (int x = 0; x < BANDS; x++) {
 		float sum = 0;
 		int b1 = pow(2, x * 10.0 / (BANDS-1));
 
-		if (b1 > 127) {
-			b1 = 127;
+		if (b1 > BANDS) {
+			b1 = BANDS;
 		}
 
 		if (b1 <= b0) {
@@ -95,24 +89,22 @@ void SongAnalyser::addObserver(SceneNode* newObserver)
 void SongAnalyser::notify()
 {
 	// analyse channel data
-	float fft[1024];
-	BASS_ChannelGetData(chan, fft, BASS_DATA_FFT2048); // get the FFT data
+	float fft[FREQUENCIES];
+	BASS_ChannelGetData(chan, fft, BASS_DATA_FFT256); // get the FFT data
 	int y = 0, b0 = 0;
-	DWORD val = BASS_ChannelGetLevel(chan);
+	//DWORD val = BASS_ChannelGetLevel(chan);
 
 	for(unsigned int x = 0; x < observers.size(); x++) {
 		SceneNode *curr = observers[x];
-
-		//logFile << val;
-		//logFile << "\n";
-		long value = fft[90];
-		if ( curr->getScale().x > value) {
-			curr->setPosition(curr->getPosition().x, value,  curr->getPosition().z);
-			curr->setScale(curr->getScale().x - 0.1, curr->getScale().y - 0.1,  curr->getScale().z - 0.1);
-		} else {
-			curr->setPosition(curr->getPosition().x, value,  curr->getPosition().z);
-			curr->setScale(curr->getScale().x + 0.1, curr->getScale().y + 0.1,  curr->getScale().z + 0.1);
+		for (int i = 0; i < FREQUENCIES; i++) {
+			float value = fft[i] * FREQUENCIES;
+			logFile << "[" << i << "]:\t" << fft[i] << "\n";
+			if ( value > 0.5) {
+				curr->setScale(curr->getScale().x + 0.1, curr->getScale().y + 0.1,  curr->getScale().z + 0.1);
+				break;
+			}
 		}
+		curr->setScale(curr->getScale().x - 0.1, curr->getScale().y - 0.1,  curr->getScale().z - 0.1);
 	}
 }
 

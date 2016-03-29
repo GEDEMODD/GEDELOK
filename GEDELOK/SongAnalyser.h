@@ -20,6 +20,7 @@ class SongAnalyser : public Ogre::Singleton<SongAnalyser>
 
 #define SPECHEIGHT 127
 #define BANDS 127
+#define FREQUENCIES 128
 
 private:
 	SceneManager* mSceneMgr;
