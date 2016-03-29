@@ -6,7 +6,7 @@ ParticleBeat::ParticleBeat(Ogre::ParticleSystem * particleSystem, Ogre::SceneNod
 	_particleSystem = particleSystem;
 	_sceneNode = sceneNode;
 	_startTime = time(0);
-	sceneNode->attachObject(_particleSystem);
+	_sceneNode->attachObject(_particleSystem);
 }
 
 
