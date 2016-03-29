@@ -1,16 +1,17 @@
-#include "OGRE\OgreSceneManager.h"
-#include "OGRE\OgreRoot.h"
 #include "OGRE\OgreConfigFile.h"
-#include "OGRE\OgreRenderWindow.h"
 #include "OGRE\OgreEntity.h"
-#include "OGRE\OgreMovableObject.h"
 #include "OGRE\OgreIteratorWrapper.h"
-#include "MyFrameListener.h"
-#include "OGRE\OgreWindowEventUtilities.h"
+#include "OGRE\OgreMovableObject.h"
+#include "OGRE\OgreRenderWindow.h"
+#include "OGRE\OgreRoot.h"
+#include "OgreEntity.h"
+#include "OgreSceneManager.h"
+#include "OgreWindowEventUtilities.h"
+
 #include "bass.h"
+#include "MyFrameListener.h"
 #include "SongAnalyser.h"
 
-#pragma once
 class MySceneManager
 {
 private:

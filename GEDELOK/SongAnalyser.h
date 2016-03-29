@@ -1,10 +1,18 @@
 #ifndef __SongAnalyser_H__
 #define __SongAnalyser_H__
 
-#include "Ogre.h"
+#include "OgreEntity.h"
+#include "OgreLogManager.h"
+#include "OgreMovableObject.h"
+#include "OgreParticleSystem.h"
+#include "OgreSceneNode.h"
+#include "OgreSceneManager.h"
 #include "OgreSingleton.h"
-#include "bass.h"
+#include "OgreStringConverter.h"
+
 #include <fstream>
+
+#include "bass.h"
 #include "ParticleBeat.h"
 
 using namespace Ogre;

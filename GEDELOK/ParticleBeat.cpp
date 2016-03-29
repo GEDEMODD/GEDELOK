@@ -1,6 +1,5 @@
 #include "ParticleBeat.h"
 
-
 ParticleBeat::ParticleBeat(Ogre::ParticleSystem * particleSystem, Ogre::SceneNode * sceneNode)
 {
 	_particleSystem = particleSystem;

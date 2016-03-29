@@ -1,5 +1,6 @@
+#include "OgreParticleSystem.h"
+
 #include <time.h>
-#include "OGRE\Ogre.h"
 #include "MyFrameListener.h"
 
 class ParticleBeat

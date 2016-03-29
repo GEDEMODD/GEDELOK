@@ -1,6 +1,5 @@
 #include "MyFrameListener.h"
 
-
 MyFrameListener::MyFrameListener(void)
 {
 }

@@ -1,10 +1,10 @@
-#include "OGRE\OgreFrameListener.h"
-#include "OIS\OIS.h"
-#include "OGRE\OgreRenderWindow.h"
 #include "OGRE\OgreCamera.h"
+#include "OGRE\OgreFrameListener.h"
 #include "OGRE\OgreMeshManager.h"
+#include "OGRE\OgreRenderWindow.h"
 #include "OGRE\OgreSceneNode.h"
-#include "OGRE\Ogre.h"
+#include "OIS\OIS.h"
+
 
 #pragma once
 class MyFrameListener : public Ogre::FrameListener
