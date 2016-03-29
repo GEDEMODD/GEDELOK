@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "OGRE\OgreConfigFile.h"
 #include "OGRE\OgreEntity.h"
 #include "OGRE\OgreIteratorWrapper.h"

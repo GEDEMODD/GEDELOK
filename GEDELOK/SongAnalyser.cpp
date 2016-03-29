@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "SongAnalyser.h"
 template<> SongAnalyser* Ogre::Singleton<SongAnalyser>::msSingleton = 0;
 

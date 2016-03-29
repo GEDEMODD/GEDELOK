@@ -1,6 +1,4 @@
-#ifndef __SongAnalyser_H__
-#define __SongAnalyser_H__
-
+#include "stdafx.h"
 #include "OgreEntity.h"
 #include "OgreLogManager.h"
 #include "OgreMovableObject.h"
@@ -40,5 +38,3 @@ public:
 	void addObserver(SceneNode* newObserver);
 	void SongAnalyser::notify();
 };
-
-#endif

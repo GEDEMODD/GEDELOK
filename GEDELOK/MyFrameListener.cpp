@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "MyFrameListener.h"
 
 MyFrameListener::MyFrameListener(void)

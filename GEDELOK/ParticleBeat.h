@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "OgreParticleSystem.h"
 
 #include <time.h>

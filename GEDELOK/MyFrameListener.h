@@ -1,12 +1,5 @@
-#include "OGRE\OgreCamera.h"
-#include "OGRE\OgreFrameListener.h"
-#include "OGRE\OgreMeshManager.h"
-#include "OGRE\OgreRenderWindow.h"
-#include "OGRE\OgreSceneNode.h"
-#include "OIS\OIS.h"
+#include "stdafx.h"
 
-
-#pragma once
 class MyFrameListener : public Ogre::FrameListener
 {
 private:

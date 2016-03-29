@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "ParticleBeat.h"
 
 ParticleBeat::ParticleBeat(Ogre::ParticleSystem * particleSystem, Ogre::SceneNode * sceneNode)
