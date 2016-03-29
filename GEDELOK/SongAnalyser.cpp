@@ -19,7 +19,7 @@ SongAnalyser::SongAnalyser(SceneManager* sceneManager)
 		cubes[i] = mSceneMgr->getRootSceneNode()->createChildSceneNode();
 		cubes[i]->attachObject(ent);
 		cubes[i]->setScale(Vector3(0.3,0.3,0.3));
-		cubes[i]->setPosition(Vector3(0,0,i*50));
+		cubes[i]->setPosition(Vector3(500,10,i*5-500));
 	}
 
 	// play a song
@@ -74,8 +74,8 @@ void SongAnalyser::update()
 		// y will range from 0 (sometimes negative) to SPECHEIGHT
 		// now let's visualize it with cubes
 		Vector3 currentpos = cubes[x]->getPosition();
-		cubes[x]->setScale(0.3, (float)y / 50.0, 0.3);
-		cubes[x]->setPosition(currentpos.x, 0.5 * 106.08 * (float)y / 50.0 , currentpos.z);
+		cubes[x]->setScale(0.03, (float)y / 500.0, 0.03);
+		cubes[x]->setPosition(currentpos.x, 0.5 * (float)y / 50.0 , currentpos.z);
 	}
 }
 

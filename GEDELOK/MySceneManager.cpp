@@ -81,9 +81,9 @@ void MySceneManager::createScene()
 		1500, 1500, 200, 200, true, 1, 5, 6, Ogre::Vector3::UNIT_Z);
 
 	// Create plane and add it to the scene and also change the material
-	Ogre::Entity* ground = _sceneManager->createEntity("LinghtPlaneEntity", "plane");
+	Ogre::Entity* ground = _sceneManager->createEntity("LightPlaneEntity", "plane");
 	_sceneManager->getRootSceneNode()->createChildSceneNode()->attachObject(ground);
-	ground->setMaterialName("Examples/BeachStones");
+	ground->setMaterialName("shader/texture");
 
 	// Add one directional light
 	Ogre::Light* light = _sceneManager->createLight( "Light1" );
