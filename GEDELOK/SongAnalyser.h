@@ -5,6 +5,7 @@
 #include "OgreSingleton.h"
 #include "bass.h"
 #include <fstream>
+#include "ParticleBeat.h"
 
 using namespace Ogre;
 
@@ -12,14 +13,15 @@ class SongAnalyser : public Ogre::Singleton<SongAnalyser>
 {
 
 #define SPECHEIGHT 127
-#define BANDS 28
+#define BANDS 127
 
 private:
 	SceneManager* mSceneMgr;
 	DWORD chan;
 	SceneNode* cubes[BANDS];
 	std::vector<SceneNode*> observers;
-	std::ofstream logFile;
+	std::vector<ParticleBeat*> particleBeats;
+	std::ofstream logFile; 
 
 public:
 	static SongAnalyser& getSingleton(void);
