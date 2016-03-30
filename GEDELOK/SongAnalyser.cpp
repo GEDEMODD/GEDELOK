@@ -14,12 +14,12 @@ SongAnalyser& SongAnalyser::getSingleton(void)
 SongAnalyser::SongAnalyser(SceneManager* sceneManager)
 {
 	mSceneMgr = sceneManager;
-	for (int i=0; i<BANDS; i++) {
+	for (int i = 0; i < BANDS; i++) {
 		Entity* ent = mSceneMgr->createEntity("mycube" + StringConverter::toString(i),"cube.mesh");
 		cubes[i] = mSceneMgr->getRootSceneNode()->createChildSceneNode();
 		cubes[i]->attachObject(ent);
 		cubes[i]->setScale(Vector3(0.3,0.3,0.3));
-		cubes[i]->setPosition(Vector3(500,10,i*5-500));
+		cubes[i]->setPosition(Vector3(0,0,i*50));
 	}
 
 	// play a song
@@ -27,7 +27,7 @@ SongAnalyser::SongAnalyser(SceneManager* sceneManager)
 		Ogre::LogManager::getSingleton().logMessage("can't initialize BASS");
 	}
 	else {
-		char file[MAX_PATH]="../wave.mp3";
+		char file[MAX_PATH]="../dab.mp3";
 		if (!(chan = BASS_StreamCreateFile(FALSE, file, 0, 0, BASS_SAMPLE_LOOP))
 			&& !(chan = BASS_MusicLoad(FALSE, file, 0, 0, BASS_MUSIC_RAMP | BASS_SAMPLE_LOOP, 0))) {
 			Ogre::LogManager::getSingleton().logMessage("can't play music file");
@@ -49,7 +49,7 @@ void SongAnalyser::update()
 	// analyse channel data
 	float fft[FREQUENCIES];
 	BASS_ChannelGetData(chan,fft,BASS_DATA_FFT256); // get the FFT data
-	int y=0, b0=0;
+	int y = 0, b0 = 0;
 
 	for (int x = 0; x < BANDS; x++) {
 		float sum = 0;
@@ -76,8 +76,8 @@ void SongAnalyser::update()
 		// y will range from 0 (sometimes negative) to SPECHEIGHT
 		// now let's visualize it with cubes
 		Vector3 currentpos = cubes[x]->getPosition();
-		cubes[x]->setScale(0.03, (float)y / 500.0, 0.03);
-		cubes[x]->setPosition(currentpos.x, 0.5 * (float)y / 50.0 , currentpos.z);
+		cubes[x]->setScale(0.3, (float)y / 50.0, 0.3);
+		cubes[x]->setPosition(currentpos.x, 0.5 * 106.08 * (float)y / 50.0 , currentpos.z);
 	}
 }
 
@@ -94,17 +94,29 @@ void SongAnalyser::notify()
 	int y = 0, b0 = 0;
 	//DWORD val = BASS_ChannelGetLevel(chan);
 
+	float value = fft[0];
+	for (int i = 0; i < FREQUENCIES; i++) {
+		value = fft[i] < 0.0 ? 0 : fft[i];
+		logFile << "[" << i << "]:\t" << fft[i]  << " = " << value << "\n";
+		if (value > 0.7) { 
+			
+		}
+	}
+
 	for(unsigned int x = 0; x < observers.size(); x++) {
 		SceneNode *curr = observers[x];
-		for (int i = 0; i < FREQUENCIES; i++) {
-			float value = fft[i] * FREQUENCIES;
-			logFile << "[" << i << "]:\t" << fft[i] << "\n";
-			if ( value > 0.5) {
-				curr->setScale(curr->getScale().x + 0.1, curr->getScale().y + 0.1,  curr->getScale().z + 0.1);
-				break;
+		Ogre::Vector3 currScale = curr->getScale();
+
+		if ( value > 0.6) {
+			curr->setScale(currScale.x + 0.01,currScale.y + 0.01,  currScale.z + 0.01);
+		} else {
+			// make sure scale dose not go under 0
+			if (currScale.length <= 0.02f) {
+				curr->setScale(0.0, 0.0, 0.0);
+			} else {
+				curr->setScale(currScale.x - 0.02, currScale.y - 0.02,  currScale.z - 0.02);
 			}
 		}
-		curr->setScale(curr->getScale().x - 0.1, curr->getScale().y - 0.1,  curr->getScale().z - 0.1);
 	}
 }
 
