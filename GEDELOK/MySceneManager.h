@@ -23,6 +23,8 @@ private:
 	bool _keepRunning;
 	Ogre::SceneNode* _SinbadNode;
 	Ogre::Entity* _SinbadEnt;
+	Ogre::SceneNode* _cubeNode;
+	Ogre::Entity* _cubeEnt;
 
 public:
 	MySceneManager(void);
