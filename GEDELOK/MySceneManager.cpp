@@ -102,6 +102,11 @@ void MySceneManager::createScene()
 
 	_songAnalyser = new SongAnalyser(_sceneManager);
 	_songAnalyser->addObserver(_SinbadNode);
+
+	// Create a particle system
+	Ogre::ParticleSystem* partSystem = _sceneManager->createParticleSystem("smoke", "MySmoke1");
+	// Attach the particle system to Sinbad
+	_SinbadNode->attachObject(partSystem); 
 }
 
 void MySceneManager::renderOneFrame()
