@@ -23,6 +23,7 @@ SongAnalyser::SongAnalyser(SceneManager* sceneManager)
 		cubes[i]->setPosition(Vector3(0,0,i*50));
 	}
 
+	_songs.push_back("../songs/UnitySong.mp3");
 	_songs.push_back("../songs/dab.mp3");
 	_songs.push_back("../songs/LovelyDay.mp3");
 	_songs.push_back("../songs/army.mp3");
@@ -59,7 +60,7 @@ SongAnalyser::~SongAnalyser()
 
 void SongAnalyser::changeSong()
 {
-	if (_current >= 4 ) {
+	if (_current >= (_songs.size() - 1)) {
 		_current = 0;
 	} else {
 		_current++;
@@ -162,7 +163,7 @@ void SongAnalyser::notify()
 
 	for(unsigned int x = 0; x < particleBeats.size(); x++) {
 		ParticleBeat *curr = particleBeats[x];
-		if ( !curr->isActive() && freq[0] ) { 
+		if ( !curr->isActive() && freq[2] ) { 
 			curr->start();
 		} else if ( curr->isActive() ) {
 			curr->stop();
