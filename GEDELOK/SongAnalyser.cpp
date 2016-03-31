@@ -27,7 +27,7 @@ SongAnalyser::SongAnalyser(SceneManager* sceneManager)
 		Ogre::LogManager::getSingleton().logMessage("can't initialize BASS");
 	}
 	else {
-		char file[MAX_PATH]="../808.mp3";
+		char file[MAX_PATH]="../dab.mp3";
 		if (!(chan = BASS_StreamCreateFile(FALSE, file, 0, 0, BASS_SAMPLE_LOOP))
 			&& !(chan = BASS_MusicLoad(FALSE, file, 0, 0, BASS_MUSIC_RAMP | BASS_SAMPLE_LOOP, 0))) {
 				Ogre::LogManager::getSingleton().logMessage("can't play music file");
@@ -98,8 +98,6 @@ void SongAnalyser::notify()
 
 	double makeSmallerBy = 0.1,
 		   makeBiggerBy = 0.3,
-		   smallest = 1,
-		   cap = 20,
 		   threashold = 0.35;
 
 	float value = fft[0];
@@ -127,20 +125,11 @@ void SongAnalyser::notify()
 	}
 
 	for(unsigned int x = 0; x < observers.size(); x++) {
-		SceneNode *curr = observers[x]->getNode();
-		Ogre::Vector3 currScale = curr->getScale();
-
+		Object *curr = observers[x];
 		if ( low ) {
-			//if ( currScale.x < cap ) {
-				curr->setScale(currScale.x + makeBiggerBy, currScale.y + makeBiggerBy, currScale.z + makeBiggerBy);
-				accelerator = 1;
-			//}
+			curr->increase();
 		} else {
-			// make sure scale dose not go under smallest size
-			if (currScale.x > smallest) {
-				accelerator += 0.2;
-				curr->setScale(currScale.x - makeSmallerBy, currScale.y - makeSmallerBy, currScale.z - makeSmallerBy);
-			}
+			curr->decrease();
 		}
 	}
 }

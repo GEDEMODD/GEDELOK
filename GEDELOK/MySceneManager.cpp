@@ -103,8 +103,12 @@ void MySceneManager::createScene()
 	_songAnalyser = new SongAnalyser(_sceneManager);
 
 	// make boxes
-	for(int i = 0; i < 4; i++) {
-		objects.push_back(new Object(_sceneManager, Ogre::Vector3(1, 1, 1), Ogre::Vector3(0, 0, (i + 1) * -20), "donutDab" + i, "Donut.mesh"));
+	for(int i = 1; i <= 4; i++) {
+		objects.push_back(new Object(_sceneManager, "donutDab" + i, "Donut.mesh"));
+		objects.back()->setPosition(Ogre::Vector3(0, 0, i * -50));
+		objects.back()->setMaxSize( i * 3 );
+		objects.back()->setMinSize( 1 );
+		objects.back()->setScaling( Ogre::Vector3(i * 0.1, i * 0.1, i * 0.1) );
 		_songAnalyser->addObserver(objects.back());
 	}
 }
