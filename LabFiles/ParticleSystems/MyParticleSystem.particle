@@ -52,7 +52,7 @@ particle_system MySmoke1 {
 	// This will make the particles fly around like they have no tomorrow.
 	affector DirectionRandomiser {
 		// This indicates the magnitude of the random choices the particle makes.
-		randomness 	80
+		randomness 	220
 		// Scope governs the chance that a given particle takes a random direction change scale from 0..1 ~ 0-100%
 		scope 		1
 		// Here you can indicate if the particle should randomize its velocity or not. <true|false>
@@ -88,11 +88,11 @@ particle_system MySmoke1 {
 		emission_rate		100
 		// Emit the particles in the given direction, at a velocity of 20 units per second.
 		direction		0 1 0
-		velocity		80
+		velocity		100
 		colour 1 0 0 0
-		time_to_live 3
+		time_to_live 1.5
 		// Emit particles for 1 second at a time with a 1 second interval.
-		duration 		1
-		//repeat_delay		1
+		duration 	1000
+		// repeat_delay 1
 	}
 }
