@@ -12,6 +12,7 @@
 #include "bass.h"
 #include "MyFrameListener.h"
 #include "SongAnalyser.h"
+#include "Object.h"
 
 class MySceneManager
 {
@@ -23,8 +24,7 @@ private:
 	bool _keepRunning;
 	Ogre::SceneNode* _SinbadNode;
 	Ogre::Entity* _SinbadEnt;
-	Ogre::SceneNode* _cubeNode;
-	Ogre::Entity* _cubeEnt;
+	std::vector<Object*> objects;
 
 public:
 	MySceneManager(void);

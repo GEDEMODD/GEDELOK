@@ -12,6 +12,7 @@
 
 #include "bass.h"
 #include "ParticleBeat.h"
+#include "Object.h"
 
 using namespace Ogre;
 
@@ -26,7 +27,7 @@ private:
 	SceneManager* mSceneMgr;
 	DWORD chan;
 	SceneNode* cubes[BANDS];
-	std::vector<SceneNode*> observers;
+	std::vector<Object *> observers;
 	std::vector<ParticleBeat*> particleBeats;
 	std::ofstream logFile; 
 	float accelerator;
@@ -37,6 +38,6 @@ public:
 	SongAnalyser(SceneManager* MySceneManager);
 	~SongAnalyser();
 	void update();
-	void addObserver(SceneNode* newObserver);
+	void addObserver(Object* newObserver);
 	void SongAnalyser::notify();
 };

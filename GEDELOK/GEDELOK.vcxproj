@@ -87,12 +87,14 @@
     <ClInclude Include="bass.h" />
     <ClInclude Include="MyFrameListener.h" />
     <ClInclude Include="MySceneManager.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="ParticleBeat.h" />
     <ClInclude Include="SongAnalyser.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyFrameListener.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="ParticleBeat.cpp" />
     <ClCompile Include="Ogre3d.cpp" />
     <ClCompile Include="MySceneManager.cpp" />

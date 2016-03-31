@@ -83,7 +83,7 @@ void SongAnalyser::update()
 	}
 }
 
-void SongAnalyser::addObserver(SceneNode* newObserver)
+void SongAnalyser::addObserver(Object* newObserver)
 {
 	observers.push_back(newObserver);
 }
@@ -96,11 +96,11 @@ void SongAnalyser::notify()
 	int y = 0, b0 = 0;
 	//DWORD val = BASS_ChannelGetLevel(chan);
 
-	double makeSmallerBy = 0.2 * accelerator,
-		   makeBiggerBy = 0.2,
-		   smallest = 0.5,
+	double makeSmallerBy = 0.1,
+		   makeBiggerBy = 0.3,
+		   smallest = 1,
 		   cap = 20,
-		   threashold = 0.4;
+		   threashold = 0.35;
 
 	float value = fft[0];
 	bool low = false, mid = false, high = false;
@@ -127,7 +127,7 @@ void SongAnalyser::notify()
 	}
 
 	for(unsigned int x = 0; x < observers.size(); x++) {
-		SceneNode *curr = observers[x];
+		SceneNode *curr = observers[x]->getNode();
 		Ogre::Vector3 currScale = curr->getScale();
 
 		if ( low ) {
@@ -138,7 +138,7 @@ void SongAnalyser::notify()
 		} else {
 			// make sure scale dose not go under smallest size
 			if (currScale.x > smallest) {
-				accelerator += 0.1;
+				accelerator += 0.2;
 				curr->setScale(currScale.x - makeSmallerBy, currScale.y - makeSmallerBy, currScale.z - makeSmallerBy);
 			}
 		}

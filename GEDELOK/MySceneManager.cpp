@@ -102,14 +102,11 @@ void MySceneManager::createScene()
 
 	_songAnalyser = new SongAnalyser(_sceneManager);
 
-	// make boxes 
-	_cubeEnt = _sceneManager->createEntity("mycubeDab" ,"cube.mesh");
-	_cubeNode = _sceneManager->getRootSceneNode()->createChildSceneNode();
-	_cubeNode->attachObject(_cubeEnt);
-	_cubeNode->setScale(Vector3(0.3,0.3,0.3));
-	_cubeNode->setPosition(Vector3(0, 0, -50));
-	_songAnalyser->addObserver(_cubeNode);
-
+	// make boxes
+	for(int i = 0; i < 4; i++) {
+		objects.push_back(new Object(_sceneManager, Ogre::Vector3(1, 1, 1), Ogre::Vector3(0, 0, (i + 1) * -20), "donutDab" + i, "Donut.mesh"));
+		_songAnalyser->addObserver(objects.back());
+	}
 }
 
 void MySceneManager::renderOneFrame()
