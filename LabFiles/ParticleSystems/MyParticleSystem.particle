@@ -86,13 +86,13 @@ particle_system MySmoke1 {
 	emitter Point {
 		// Make the emitter emit 30 particles per second.
 		emission_rate		100
-		// Emitt the particles in the given direction, at a velocity of 20 units per second.
+		// Emit the particles in the given direction, at a velocity of 20 units per second.
 		direction		0 1 0
 		velocity		80
 		colour 1 0 0 0
-		time_to_live 10
+		time_to_live 3
 		// Emit particles for 1 second at a time with a 1 second interval.
 		duration 		1
-		repeat_delay		1
+		//repeat_delay		1
 	}
 }
