@@ -13,7 +13,11 @@ MyFrameListener::~MyFrameListener(void)
 	OIS::InputManager::destroyInputSystem(_InputManager);
 }
 
-MyFrameListener::MyFrameListener(Ogre::RenderWindow* win, Ogre::Camera* cam, Ogre::Viewport* viewport, Ogre::SceneNode* node, Ogre::Entity* ent)
+MyFrameListener::MyFrameListener(Ogre::RenderWindow* win, 
+								 Ogre::Camera* cam, 
+								 Ogre::Viewport* viewport, 
+								 Ogre::SceneNode* node, 
+								 Ogre::Entity* ent)
 {
 	OIS::ParamList parameters;
 	unsigned int windowHandle = 0;
@@ -40,6 +44,10 @@ bool MyFrameListener::frameStarted(const Ogre::FrameEvent& evt)
 	_Keyboard->capture();
 	if( _Keyboard->isKeyDown( OIS::KC_ESCAPE ) ){ 
 		return false;
+	}
+
+	if ( _Keyboard->isKeyDown( OIS::KC_N ) ) {
+		_songAnalyser->changeSong();
 	}
 		
 	// Move the camera with W S A D
@@ -131,4 +139,9 @@ void MyFrameListener::setAniStateTop(Ogre::AnimationState* state)
 {
 	_aniStateTop = state;
 	_aniStateTop->setLoop(false);
+}
+
+void MyFrameListener::setSongAnalyser(SongAnalyser* songAnalyser)
+{
+	_songAnalyser = songAnalyser;
 }

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "SongAnalyser.h"
+
 template<> SongAnalyser* Ogre::Singleton<SongAnalyser>::msSingleton = 0;
 
 SongAnalyser* SongAnalyser::getSingletonPtr(void)
@@ -27,7 +28,7 @@ SongAnalyser::SongAnalyser(SceneManager* sceneManager)
 		Ogre::LogManager::getSingleton().logMessage("can't initialize BASS");
 	}
 	else {
-		char file[MAX_PATH]="../dab.mp3";
+		char file[MAX_PATH]="../808.mp3";
 		if (!(chan = BASS_StreamCreateFile(FALSE, file, 0, 0, BASS_SAMPLE_LOOP))
 			&& !(chan = BASS_MusicLoad(FALSE, file, 0, 0, BASS_MUSIC_RAMP | BASS_SAMPLE_LOOP, 0))) {
 				Ogre::LogManager::getSingleton().logMessage("can't play music file");
@@ -41,12 +42,42 @@ SongAnalyser::SongAnalyser(SceneManager* sceneManager)
 	for (int i = 0; i <= RANGES ; i++ )  {
 		ranges[i] = (FREQUENCIES/RANGES) * i;
 	}
+	_current = 0;
+
+	_songs.push_back("../dab.mp3");
+	_songs.push_back("../808.mp3");
+	_songs.push_back("../LovelyDay.mp3");
+	_songs.push_back("../army.mp3");
+	_songs.push_back("../wave.mp3");
 }
 
 SongAnalyser::~SongAnalyser()
 {
 	BASS_Free(); // free up BASS
 	logFile.close();
+}
+
+void SongAnalyser::changeSong()
+{
+	if (_current >= 4 ) {
+		_current = 0;
+	} else {
+		_current++;
+	}
+	char *file = _songs[_current];
+	BASS_ChannelStop(chan);
+	BASS_Free();
+	if (!BASS_Init(-1,44100,0,NULL,NULL)) {
+		Ogre::LogManager::getSingleton().logMessage("can't initialize BASS");
+	}
+	else {
+		if (!(chan = BASS_StreamCreateFile(FALSE, file, 0, 0, BASS_SAMPLE_LOOP))
+			&& !(chan = BASS_MusicLoad(FALSE, file, 0, 0, BASS_MUSIC_RAMP | BASS_SAMPLE_LOOP, 0))) {
+				Ogre::LogManager::getSingleton().logMessage("can't play music file");
+				std::cout << "cant play: " << _songs[_current] << "\n";
+		}
+		BASS_ChannelPlay(chan,FALSE);
+	}
 }
 
 void SongAnalyser::update()
@@ -99,9 +130,7 @@ void SongAnalyser::notify()
 	int y = 0, b0 = 0;
 	//DWORD val = BASS_ChannelGetLevel(chan);
 
-	double makeSmallerBy = 0.1,
-		   makeBiggerBy = 0.3,
-		   threashold = 0.1;
+	double threashold = 0.01;
 
 	float value = fft[0];
 	bool freq[8] = {false, false, false, false, false, false, false, false };

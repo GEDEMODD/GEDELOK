@@ -15,7 +15,7 @@
 #include "Object.h"
 
 using namespace Ogre;
-
+#pragma once
 class SongAnalyser : public Ogre::Singleton<SongAnalyser>
 {
 
@@ -33,6 +33,8 @@ private:
 	std::ofstream logFile; 
 	float accelerator;
 	int ranges[RANGES + 1];
+	int _current;
+	std::vector<char *> _songs;
 						   
 
 public:
@@ -43,4 +45,5 @@ public:
 	void update();
 	void addObserver(Object* newObserver);
 	void SongAnalyser::notify();
+	void SongAnalyser::changeSong();
 };

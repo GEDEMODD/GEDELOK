@@ -2,8 +2,8 @@
 #include "OgreParticleSystem.h"
 
 #include <time.h>
-#include "MyFrameListener.h"
 
+#pragma once
 class ParticleBeat
 {
 private:
