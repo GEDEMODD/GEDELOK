@@ -118,6 +118,8 @@ void MySceneManager::createScene()
 		objects.back()->setFreqSubscription(i - 1);
 		_songAnalyser->addObserver(objects.back());
 	}
+
+	_songAnalyser->addParticleBeat( new ParticleBeat(_sceneManager->createParticleSystem("smoke", "MySmoke1"), _SinbadNode));
 }
 
 void MySceneManager::renderOneFrame()

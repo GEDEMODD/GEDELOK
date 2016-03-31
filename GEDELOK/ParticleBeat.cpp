@@ -5,13 +5,30 @@ ParticleBeat::ParticleBeat(Ogre::ParticleSystem * particleSystem, Ogre::SceneNod
 {
 	_particleSystem = particleSystem;
 	_sceneNode = sceneNode;
-	_startTime = time(0);
-	_sceneNode->attachObject(_particleSystem);
+	_active = false;
 }
 
 
 ParticleBeat::~ParticleBeat(void)
 {
+}
+
+void ParticleBeat::start()
+{
+	_active = true;
+	_startTime = time(0);
+	_sceneNode->attachObject(_particleSystem);
+}
+
+void ParticleBeat::stop()
+{
+	_active = false;
+	_particleSystem->clear();
+}
+
+bool ParticleBeat::isActive()
+{
+	return _active;
 }
 
 int ParticleBeat::timeSinceStartedInSeconds()

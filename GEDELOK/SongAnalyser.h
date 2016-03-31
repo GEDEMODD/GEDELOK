@@ -44,6 +44,7 @@ public:
 	~SongAnalyser();
 	void update();
 	void addObserver(Object* newObserver);
+	void addParticleBeat(ParticleBeat* particleBeat);
 	void SongAnalyser::notify();
 	void SongAnalyser::changeSong();
 };

@@ -28,7 +28,7 @@ SongAnalyser::SongAnalyser(SceneManager* sceneManager)
 		Ogre::LogManager::getSingleton().logMessage("can't initialize BASS");
 	}
 	else {
-		char file[MAX_PATH]="../808.mp3";
+		char file[MAX_PATH]="../songs/808.mp3";
 		if (!(chan = BASS_StreamCreateFile(FALSE, file, 0, 0, BASS_SAMPLE_LOOP))
 			&& !(chan = BASS_MusicLoad(FALSE, file, 0, 0, BASS_MUSIC_RAMP | BASS_SAMPLE_LOOP, 0))) {
 				Ogre::LogManager::getSingleton().logMessage("can't play music file");
@@ -44,11 +44,11 @@ SongAnalyser::SongAnalyser(SceneManager* sceneManager)
 	}
 	_current = 0;
 
-	_songs.push_back("../dab.mp3");
-	_songs.push_back("../808.mp3");
-	_songs.push_back("../LovelyDay.mp3");
-	_songs.push_back("../army.mp3");
-	_songs.push_back("../wave.mp3");
+	_songs.push_back("../songs/dab.mp3");
+	_songs.push_back("../songs/808.mp3");
+	_songs.push_back("../songs/LovelyDay.mp3");
+	_songs.push_back("../songs/army.mp3");
+	_songs.push_back("../songs/wave.mp3");
 }
 
 SongAnalyser::~SongAnalyser()
@@ -122,6 +122,11 @@ void SongAnalyser::addObserver(Object* newObserver)
 	observers.push_back(newObserver);
 }
 
+void SongAnalyser::addParticleBeat(ParticleBeat* particleBeat)
+{
+	particleBeats.push_back(particleBeat);
+}
+
 void SongAnalyser::notify()
 {
 	// analyse channel data
@@ -146,7 +151,6 @@ void SongAnalyser::notify()
 		}
 	}
 
-
 	for(unsigned int x = 0; x < observers.size(); x++) {
 		Object *curr = observers[x];
 		if ( freq[curr->getFreqSubscription()] ) {
@@ -154,6 +158,15 @@ void SongAnalyser::notify()
 		} else {
 			curr->decrease();
 		}
+	}
+
+	for(unsigned int x = 0; x < particleBeats.size(); x++) {
+		ParticleBeat *curr = particleBeats[x];
+		if ( !curr->isActive() ) { 
+			curr->start();
+		} 
+
+		
 	}
 }
 
