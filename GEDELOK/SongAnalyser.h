@@ -22,6 +22,7 @@ class SongAnalyser : public Ogre::Singleton<SongAnalyser>
 #define SPECHEIGHT 127
 #define BANDS 127
 #define FREQUENCIES 128
+#define RANGES 8
 
 private:
 	SceneManager* mSceneMgr;
@@ -31,6 +32,8 @@ private:
 	std::vector<ParticleBeat*> particleBeats;
 	std::ofstream logFile; 
 	float accelerator;
+	int ranges[RANGES + 1];
+						   
 
 public:
 	static SongAnalyser& getSingleton(void);

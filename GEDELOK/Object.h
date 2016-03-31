@@ -9,6 +9,7 @@ private:
 	double _maxSize;
 	double _minSize;
 	Ogre::Vector3 _scaling;
+	int _freqSubscription;
 
 public:
 	Object(Ogre::SceneManager* sceneManager, 
@@ -28,6 +29,9 @@ public:
 	void setScaling(Ogre::Vector3 scaling);
 	void increase();
 	void decrease();
+
+	void setFreqSubscription(int freqSubscription);
+	int getFreqSubscription();
 
 };
 

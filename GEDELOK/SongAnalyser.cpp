@@ -38,6 +38,9 @@ SongAnalyser::SongAnalyser(SceneManager* sceneManager)
 	logFile.open("log.txt");
 
 	accelerator = 1;
+	for (int i = 0; i <= RANGES ; i++ )  {
+		ranges[i] = (FREQUENCIES/RANGES) * i;
+	}
 }
 
 SongAnalyser::~SongAnalyser()
@@ -98,35 +101,26 @@ void SongAnalyser::notify()
 
 	double makeSmallerBy = 0.1,
 		   makeBiggerBy = 0.3,
-		   threashold = 0.35;
+		   threashold = 0.1;
 
 	float value = fft[0];
-	bool low = false, mid = false, high = false;
+	bool freq[8] = {false, false, false, false, false, false, false, false };
+
 	for (int i = 0; i < FREQUENCIES; i++) {
 		value = fft[i] <= 0.0 ? 0 : fft[i];
 		logFile << "[" << i << "]:\t" << fft[i]  << " = " << value << "\n";
 		
-		if ( i <= 20) {
-			// low freq
-			if ( !low ) {
-				low = value > threashold;
-			}
-		} else if ( (i > 20) && (i < (FREQUENCIES/3) * 2)) {
-			// mid freq
-			if ( !mid ) {
-				mid = value > threashold;
-			}
-		} else {
-			// high
-			if ( !high ) {
-				high = value > threashold;
+		for (int j = 0; j < RANGES; j++) {
+			if ( i >= ranges[j] && i < ranges[j+1] &&  !freq[j]) {
+				freq[j] = value > threashold;
 			}
 		}
 	}
 
+
 	for(unsigned int x = 0; x < observers.size(); x++) {
 		Object *curr = observers[x];
-		if ( low ) {
+		if ( freq[curr->getFreqSubscription()] ) {
 			curr->increase();
 		} else {
 			curr->decrease();

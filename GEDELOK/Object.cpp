@@ -70,3 +70,13 @@ void Object::decrease()
 	Ogre::Vector3 currentScale = getScale();
 	setScale(Ogre::Vector3(currentScale.x - _scaling.x, currentScale.y - _scaling.y, currentScale.z - _scaling.z));
 }
+
+void Object::setFreqSubscription(int freqSubscription)
+{
+	_freqSubscription = freqSubscription;
+}
+
+int Object::getFreqSubscription()
+{
+	return _freqSubscription;
+}

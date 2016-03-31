@@ -109,12 +109,13 @@ void MySceneManager::createScene()
 	_songAnalyser = new SongAnalyser(_sceneManager);
 
 	// make donutDab
-	for(int i = 1; i <= 4; i++) {
+	for(int i = 1; i <= 8; i++) {
 		objects.push_back(new Object(_sceneManager, "donutDab" + i, "Donut.mesh"));
 		objects.back()->setPosition(Ogre::Vector3(0, 0, i * -50));
 		objects.back()->setMaxSize( i * 3 );
 		objects.back()->setMinSize( 1 );
 		objects.back()->setScaling( Ogre::Vector3(i * 0.1, i * 0.1, i * 0.1) );
+		objects.back()->setFreqSubscription(i - 1);
 		_songAnalyser->addObserver(objects.back());
 	}
 }
