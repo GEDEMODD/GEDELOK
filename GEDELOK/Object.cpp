@@ -58,7 +58,6 @@ void Object::setScaling(Ogre::Vector3 scaling)
 	_scaling = scaling;
 }
 
-
 void Object::increase()
 {
 	Ogre::Vector3 currentScale = getScale();

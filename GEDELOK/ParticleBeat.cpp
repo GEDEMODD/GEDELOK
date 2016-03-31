@@ -6,6 +6,10 @@ ParticleBeat::ParticleBeat(Ogre::ParticleSystem * particleSystem, Ogre::SceneNod
 	_particleSystem = particleSystem;
 	_sceneNode = sceneNode;
 	_active = false;
+	_sceneNode->attachObject(_particleSystem);
+	//_particleSystem->setVisible(false);
+	_particleSystem->setEmitting(false);
+
 }
 
 
@@ -17,13 +21,16 @@ void ParticleBeat::start()
 {
 	_active = true;
 	_startTime = time(0);
-	_sceneNode->attachObject(_particleSystem);
+	_particleSystem->setEmitting(true);
+	//_particleSystem->setVisible(true);
 }
 
 void ParticleBeat::stop()
 {
 	_active = false;
-	_particleSystem->clear();
+	_particleSystem->setEmitting(false);
+	//_particleSystem->setVisible(false);
+	//_particleSystem->clear();
 }
 
 bool ParticleBeat::isActive()

@@ -119,6 +119,14 @@ void MySceneManager::createScene()
 		_songAnalyser->addObserver(objects.back());
 	}
 
+	objects.push_back(new Object(_sceneManager, "donutDabalish", "Donut.mesh"));
+	objects.back()->setPosition(Ogre::Vector3(50, 0, -50));
+	objects.back()->setMaxSize( 10 );
+	objects.back()->setMinSize( 0 );
+	objects.back()->setScaling(Ogre::Vector3(2.0, 2.0, 2.0));
+	objects.back()->setFreqSubscription(0);
+	_songAnalyser->addObserver(objects.back());
+
 	_songAnalyser->addParticleBeat( new ParticleBeat(_sceneManager->createParticleSystem("smoke", "MySmoke1"), _SinbadNode));
 }
 
