@@ -100,9 +100,15 @@ void MySceneManager::createScene()
 	_listener->setAniStateTop(_SinbadEnt->getAnimationState("RunTop"));
 	_listener->setNode(_SinbadNode);
 
+	
+	// Create a particle system
+	//Ogre::ParticleSystem* partSystem = _sceneManager->createParticleSystem("smoke", "MySmoke1");
+	// Attach the particle system to Sinbad
+	//_SinbadNode->attachObject(partSystem); 
+
 	_songAnalyser = new SongAnalyser(_sceneManager);
 
-	// make boxes
+	// make donutDab
 	for(int i = 1; i <= 4; i++) {
 		objects.push_back(new Object(_sceneManager, "donutDab" + i, "Donut.mesh"));
 		objects.back()->setPosition(Ogre::Vector3(0, 0, i * -50));
