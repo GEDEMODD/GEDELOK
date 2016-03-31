@@ -29,6 +29,7 @@ private:
 	std::vector<SceneNode*> observers;
 	std::vector<ParticleBeat*> particleBeats;
 	std::ofstream logFile; 
+	float accelerator;
 
 public:
 	static SongAnalyser& getSingleton(void);

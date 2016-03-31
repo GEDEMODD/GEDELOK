@@ -100,13 +100,21 @@ void MySceneManager::createScene()
 	_listener->setAniStateTop(_SinbadEnt->getAnimationState("RunTop"));
 	_listener->setNode(_SinbadNode);
 
-	_songAnalyser = new SongAnalyser(_sceneManager);
-	_songAnalyser->addObserver(_SinbadNode);
-
+	
 	// Create a particle system
-	Ogre::ParticleSystem* partSystem = _sceneManager->createParticleSystem("smoke", "MySmoke1");
+	//Ogre::ParticleSystem* partSystem = _sceneManager->createParticleSystem("smoke", "MySmoke1");
 	// Attach the particle system to Sinbad
-	_SinbadNode->attachObject(partSystem); 
+	//_SinbadNode->attachObject(partSystem); 
+
+	_songAnalyser = new SongAnalyser(_sceneManager);
+	// make boxes 
+	_cubeEnt = _sceneManager->createEntity("mycubeDab" ,"cube.mesh");
+	_cubeNode = _sceneManager->getRootSceneNode()->createChildSceneNode();
+	_cubeNode->attachObject(_cubeEnt);
+	_cubeNode->setScale(Vector3(0.3,0.3,0.3));
+	_cubeNode->setPosition(Vector3(0, 0, -50));
+	_songAnalyser->addObserver(_cubeNode);
+
 }
 
 void MySceneManager::renderOneFrame()

@@ -27,15 +27,17 @@ SongAnalyser::SongAnalyser(SceneManager* sceneManager)
 		Ogre::LogManager::getSingleton().logMessage("can't initialize BASS");
 	}
 	else {
-		char file[MAX_PATH]="../dab.mp3";
+		char file[MAX_PATH]="../808.mp3";
 		if (!(chan = BASS_StreamCreateFile(FALSE, file, 0, 0, BASS_SAMPLE_LOOP))
 			&& !(chan = BASS_MusicLoad(FALSE, file, 0, 0, BASS_MUSIC_RAMP | BASS_SAMPLE_LOOP, 0))) {
-			Ogre::LogManager::getSingleton().logMessage("can't play music file");
+				Ogre::LogManager::getSingleton().logMessage("can't play music file");
 		}
 		BASS_ChannelPlay(chan,FALSE);
 	}
 	// Open the Log file
 	logFile.open("log.txt");
+
+	accelerator = 1;
 }
 
 SongAnalyser::~SongAnalyser()
@@ -94,12 +96,33 @@ void SongAnalyser::notify()
 	int y = 0, b0 = 0;
 	//DWORD val = BASS_ChannelGetLevel(chan);
 
+	double makeSmallerBy = 0.2 * accelerator,
+		   makeBiggerBy = 0.2,
+		   smallest = 0.5,
+		   cap = 20,
+		   threashold = 0.4;
+
 	float value = fft[0];
+	bool low = false, mid = false, high = false;
 	for (int i = 0; i < FREQUENCIES; i++) {
-		value = fft[i] < 0.0 ? 0 : fft[i];
+		value = fft[i] <= 0.0 ? 0 : fft[i];
 		logFile << "[" << i << "]:\t" << fft[i]  << " = " << value << "\n";
-		if (value > 0.7) { 
-			
+		
+		if ( i <= 20) {
+			// low freq
+			if ( !low ) {
+				low = value > threashold;
+			}
+		} else if ( (i > 20) && (i < (FREQUENCIES/3) * 2)) {
+			// mid freq
+			if ( !mid ) {
+				mid = value > threashold;
+			}
+		} else {
+			// high
+			if ( !high ) {
+				high = value > threashold;
+			}
 		}
 	}
 
@@ -107,14 +130,16 @@ void SongAnalyser::notify()
 		SceneNode *curr = observers[x];
 		Ogre::Vector3 currScale = curr->getScale();
 
-		if ( value > 0.6) {
-			curr->setScale(currScale.x + 0.01,currScale.y + 0.01,  currScale.z + 0.01);
+		if ( low ) {
+			//if ( currScale.x < cap ) {
+				curr->setScale(currScale.x + makeBiggerBy, currScale.y + makeBiggerBy, currScale.z + makeBiggerBy);
+				accelerator = 1;
+			//}
 		} else {
-			// make sure scale dose not go under 0
-			if (currScale.length <= 0.02f) {
-				curr->setScale(0.0, 0.0, 0.0);
-			} else {
-				curr->setScale(currScale.x - 0.02, currScale.y - 0.02,  currScale.z - 0.02);
+			// make sure scale dose not go under smallest size
+			if (currScale.x > smallest) {
+				accelerator += 0.1;
+				curr->setScale(currScale.x - makeSmallerBy, currScale.y - makeSmallerBy, currScale.z - makeSmallerBy);
 			}
 		}
 	}
