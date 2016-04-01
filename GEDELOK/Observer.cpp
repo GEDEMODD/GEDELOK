@@ -18,3 +18,5 @@ int Observer::getFrequentcyRange() { return this->_frequentcyRange; }
 void Observer::setFrequentcyRange(int range) { _frequentcyRange = range; } 
 
 float Observer::getThreashold() { return _threashold; }
+
+void Observer::setThreashold(float threashold){ _threashold = threashold; }

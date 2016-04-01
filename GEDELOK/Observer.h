@@ -15,5 +15,6 @@ public:
 	int getFrequentcyRange();
 	void setFrequentcyRange(int range);
 	float getThreashold();
+	void setThreashold(float threashold);
 };
 
