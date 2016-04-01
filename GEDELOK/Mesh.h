@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 #pragma once
-class Object
+class Mesh
 {
 private:
 	Ogre::SceneNode* _node;
@@ -12,15 +12,15 @@ private:
 	int _freqSubscription;
 
 public:
-	Object(Ogre::SceneManager* sceneManager, 
+	Mesh(Ogre::SceneManager* sceneManager, 
 		std::string name, 
 		std::string meshName);
-	~Object(void);
+	~Mesh(void);
 
 	Ogre::SceneNode* getNode();
 	void setPosition(Ogre::Vector3 position);
 	
-	Ogre::Vector3 Object::getScale();
+	Ogre::Vector3 Mesh::getScale();
 	void setScale(Ogre::Vector3 scale);
 
 	void setMaxSize(double maxSize);

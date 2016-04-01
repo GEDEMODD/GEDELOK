@@ -88,7 +88,7 @@
     <ClInclude Include="MyLight.h" />
     <ClInclude Include="MyFrameListener.h" />
     <ClInclude Include="MySceneManager.h" />
-    <ClInclude Include="Object.h" />
+    <ClInclude Include="Mesh.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="ParticleBeat.h" />
     <ClInclude Include="SongAnalyser.h" />
@@ -97,7 +97,7 @@
   <ItemGroup>
     <ClCompile Include="MyLight.cpp" />
     <ClCompile Include="MyFrameListener.cpp" />
-    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Observer.cpp" />
     <ClCompile Include="ParticleBeat.cpp" />
     <ClCompile Include="Ogre3d.cpp" />

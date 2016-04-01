@@ -1,7 +1,7 @@
 #include "stdafx.h"
-#include "Object.h"
+#include "Mesh.h"
 
-Object::Object(Ogre::SceneManager* sceneManager,  
+Mesh::Mesh(Ogre::SceneManager* sceneManager,  
 			   std::string name, 
 			   std::string meshName)
 {
@@ -14,28 +14,28 @@ Object::Object(Ogre::SceneManager* sceneManager,
 }
 
 
-Object::~Object(void)
+Mesh::~Mesh(void)
 {
 	//delete _entity;
 	//delete _node;
 }
 
-Ogre::SceneNode* Object::getNode()
+Ogre::SceneNode* Mesh::getNode()
 {
 	return _node;
 }
 
-void Object::setPosition(Ogre::Vector3 position)
+void Mesh::setPosition(Ogre::Vector3 position)
 {
 	_node->setPosition(position);
 }
 
-Ogre::Vector3 Object::getScale()
+Ogre::Vector3 Mesh::getScale()
 {
 	return _node->getScale();
 }
 
-void Object::setScale(Ogre::Vector3 scale)
+void Mesh::setScale(Ogre::Vector3 scale)
 {
 	Ogre::Real xScale = scale.x;
 	if ( xScale < _maxSize && xScale > _minSize) {
@@ -43,39 +43,39 @@ void Object::setScale(Ogre::Vector3 scale)
 	}
 }
 
-void Object::setMaxSize(double maxSize)
+void Mesh::setMaxSize(double maxSize)
 {
 	_maxSize = maxSize;
 }
 
-void Object::setMinSize(double minSize)
+void Mesh::setMinSize(double minSize)
 {
 	_minSize = minSize;
 }
 
-void Object::setScaling(Ogre::Vector3 scaling)
+void Mesh::setScaling(Ogre::Vector3 scaling)
 {
 	_scaling = scaling;
 }
 
-void Object::increase()
+void Mesh::increase()
 {
 	Ogre::Vector3 currentScale = getScale();
 	setScale(Ogre::Vector3(currentScale.x + _scaling.x, currentScale.y + _scaling.y, currentScale.z + _scaling.z));
 }
 
-void Object::decrease()
+void Mesh::decrease()
 {
 	Ogre::Vector3 currentScale = getScale();
 	setScale(Ogre::Vector3(currentScale.x - (_scaling.x * 1.1), currentScale.y - (_scaling.x * 1.1), currentScale.z - (_scaling.x * 1.1)));
 }
 
-void Object::setFreqSubscription(int freqSubscription)
+void Mesh::setFreqSubscription(int freqSubscription)
 {
 	_freqSubscription = freqSubscription;
 }
 
-int Object::getFreqSubscription()
+int Mesh::getFreqSubscription()
 {
 	return _freqSubscription;
 }

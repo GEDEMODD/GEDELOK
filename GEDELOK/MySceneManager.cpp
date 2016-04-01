@@ -113,22 +113,22 @@ void MySceneManager::createScene()
 
 	// make donutDab
 	for(int i = 1; i <= 8; i++) {
-		objects.push_back(new Object(_sceneManager, "donutDab" + i, "Donut.mesh"));
-		objects.back()->setPosition(Ogre::Vector3(0, 0, i * -50));
-		objects.back()->setMaxSize( 10 );
-		objects.back()->setMinSize( 1 );
-		objects.back()->setScaling( Ogre::Vector3(0.4, 0.4, 0.4) );
-		objects.back()->setFreqSubscription(i - 1);
-		_songAnalyser->addObserver(objects.back());
+		_meshes.push_back(new Mesh(_sceneManager, "donutDab" + i, "Donut.mesh"));
+		_meshes.back()->setPosition(Ogre::Vector3(0, 0, i * -50));
+		_meshes.back()->setMaxSize( 10 );
+		_meshes.back()->setMinSize( 1 );
+		_meshes.back()->setScaling( Ogre::Vector3(0.4, 0.4, 0.4) );
+		_meshes.back()->setFreqSubscription(i - 1);
+		_songAnalyser->addObserver(_meshes.back());
 	}
 
-	objects.push_back(new Object(_sceneManager, "donutDabalish", "Donut.mesh"));
-	objects.back()->setPosition(Ogre::Vector3(50, 0, -50));
-	objects.back()->setMaxSize( 10 );
-	objects.back()->setMinSize( 0 );
-	objects.back()->setScaling(Ogre::Vector3(2.0, 2.0, 2.0));
-	objects.back()->setFreqSubscription(0);
-	_songAnalyser->addObserver(objects.back());
+	_meshes.push_back(new Mesh(_sceneManager, "donutDabalish", "Donut.mesh"));
+	_meshes.back()->setPosition(Ogre::Vector3(50, 0, -50));
+	_meshes.back()->setMaxSize( 10 );
+	_meshes.back()->setMinSize( 0 );
+	_meshes.back()->setScaling(Ogre::Vector3(2.0, 2.0, 2.0));
+	_meshes.back()->setFreqSubscription(0);
+	_songAnalyser->addObserver(_meshes.back());
 
 	_songAnalyser->addParticleBeat( new ParticleBeat(_sceneManager->createParticleSystem("smoke", "MySmoke1"), _SinbadNode));
 }
