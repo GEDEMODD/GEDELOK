@@ -120,15 +120,6 @@ void MySceneManager::createScene()
 	
 	_songAnalyser->addObserver(new MyLight(_sceneManager->createLight( "Light3" ), 1, 0.5));
 
-	/*
-	_meshes.push_back(new Mesh(_sceneManager, "donutDabalish", "Donut.mesh", 1, 0.5));
-	_meshes.back()->setPosition(Ogre::Vector3(50, 0, -50));
-	_meshes.back()->setMaxSize( 10 );
-	_meshes.back()->setMinSize( 0 );
-	_meshes.back()->setScaling(Ogre::Vector3(2.0, 2.0, 2.0));
-	_songAnalyser->addObserver(_meshes.back());
-	*/
-
 	for(int i = 1; i <= 8; i++) {
 		_meshes.push_back(new Mesh(_sceneManager, "donutShowcase" + i, "Donut.mesh", i-1, 1.5/pow(10, i)));
 		_meshes.back()->setPosition(Ogre::Vector3(170, i*10, -142.5));
