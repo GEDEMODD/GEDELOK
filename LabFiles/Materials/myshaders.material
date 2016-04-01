@@ -84,7 +84,7 @@ material shader/texture {
             fragment_program_ref shader/textureFP {
             }
             texture_unit {
-                texture Water02.jpg 2d
+                texture BlackWhite.jpg 2d
             }
         }
     }
@@ -139,7 +139,7 @@ fragment_program shader/lightingFP cg {
     }
 }
 
-material shader/lighting {
+material shader/phong {
     technique {
         pass {
             vertex_program_ref shader/lightingVP {

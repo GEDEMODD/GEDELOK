@@ -244,3 +244,9 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+
+# From Jorundur
+GEDELOK/bass.dll
+GEDELOK/log.txt
+

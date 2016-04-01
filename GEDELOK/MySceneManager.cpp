@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "MySceneManager.h"
 
 
@@ -81,9 +82,9 @@ void MySceneManager::createScene()
 		1500, 1500, 200, 200, true, 1, 5, 6, Ogre::Vector3::UNIT_Z);
 
 	// Create plane and add it to the scene and also change the material
-	Ogre::Entity* ground = _sceneManager->createEntity("LinghtPlaneEntity", "plane");
+	Ogre::Entity* ground = _sceneManager->createEntity("LightPlaneEntity", "plane");
 	_sceneManager->getRootSceneNode()->createChildSceneNode()->attachObject(ground);
-	ground->setMaterialName("Examples/BeachStones");
+	ground->setMaterialName("shader/texture");
 
 	// Add one directional light
 	Ogre::Light* light = _sceneManager->createLight( "Light1" );
@@ -99,7 +100,34 @@ void MySceneManager::createScene()
 	_listener->setAniStateTop(_SinbadEnt->getAnimationState("RunTop"));
 	_listener->setNode(_SinbadNode);
 
+	// Create a particle system
+	//Ogre::ParticleSystem* partSystem = _sceneManager->createParticleSystem("smoke", "MySmoke1");
+	// Attach the particle system to Sinbad
+	//_SinbadNode->attachObject(partSystem); 
+
 	_songAnalyser = new SongAnalyser(_sceneManager);
+	_listener->setSongAnalyser(_songAnalyser);
+	
+	// make donutDab
+	for(int i = 1; i <= 8; i++) {
+		objects.push_back(new Object(_sceneManager, "donutDab" + i, "Donut.mesh"));
+		objects.back()->setPosition(Ogre::Vector3(0, 0, i * -50));
+		objects.back()->setMaxSize( 10 );
+		objects.back()->setMinSize( 1 );
+		objects.back()->setScaling( Ogre::Vector3(0.4, 0.4, 0.4) );
+		objects.back()->setFreqSubscription(i - 1);
+		_songAnalyser->addObserver(objects.back());
+	}
+
+	objects.push_back(new Object(_sceneManager, "donutDabalish", "Donut.mesh"));
+	objects.back()->setPosition(Ogre::Vector3(50, 0, -50));
+	objects.back()->setMaxSize( 10 );
+	objects.back()->setMinSize( 0 );
+	objects.back()->setScaling(Ogre::Vector3(2.0, 2.0, 2.0));
+	objects.back()->setFreqSubscription(0);
+	_songAnalyser->addObserver(objects.back());
+
+	_songAnalyser->addParticleBeat( new ParticleBeat(_sceneManager->createParticleSystem("smoke", "MySmoke1"), _SinbadNode));
 }
 
 void MySceneManager::renderOneFrame()
@@ -107,6 +135,7 @@ void MySceneManager::renderOneFrame()
 	Ogre::WindowEventUtilities::messagePump();
 	_keepRunning = _root->renderOneFrame();
 	_songAnalyser->update();
+	_songAnalyser->notify();
 }	
 
 bool MySceneManager::keepRunning()

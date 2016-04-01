@@ -1,16 +1,19 @@
-#include "OGRE\OgreSceneManager.h"
-#include "OGRE\OgreRoot.h"
+#include "stdafx.h"
 #include "OGRE\OgreConfigFile.h"
-#include "OGRE\OgreRenderWindow.h"
 #include "OGRE\OgreEntity.h"
-#include "OGRE\OgreMovableObject.h"
 #include "OGRE\OgreIteratorWrapper.h"
-#include "MyFrameListener.h"
-#include "OGRE\OgreWindowEventUtilities.h"
-#include "bass.h"
-#include "SongAnalyser.h"
+#include "OGRE\OgreMovableObject.h"
+#include "OGRE\OgreRenderWindow.h"
+#include "OGRE\OgreRoot.h"
+#include "OgreEntity.h"
+#include "OgreSceneManager.h"
+#include "OgreWindowEventUtilities.h"
 
-#pragma once
+#include "bass.h"
+#include "MyFrameListener.h"
+#include "SongAnalyser.h"
+#include "Object.h"
+
 class MySceneManager
 {
 private:
@@ -21,6 +24,7 @@ private:
 	bool _keepRunning;
 	Ogre::SceneNode* _SinbadNode;
 	Ogre::Entity* _SinbadEnt;
+	std::vector<Object*> objects;
 
 public:
 	MySceneManager(void);

@@ -1,0 +1,98 @@
+particle_system MySmoke1 {
+	// Make the particles use the "Examples/Smoke" material, and be 10x10 units large.
+	material			Examples/Smoke
+	particle_width		3
+	particle_height		3
+	// Make the emitter limit the emitter to have at maximum 500 particles active.
+	// And set the particle type as point, which always faces the camera.
+	quota			500
+	billboard_type		point
+	// This affector will add the following values to the colour of the particles each second.
+	affector ColourFader {
+		red 	 0.0
+		green 	-0.25
+		blue	-0.25
+	}
+	// This affector will add the following values to the colour of the particles each second.
+	// Notice the suffix of the ColorFader(2), that is important.
+	affector ColourFader2 {
+		// Notice the suffix here also, red(1) this indicates the color change per second for state 1
+		red1 	0.0
+		green1 	-1
+		blue1	-1
+		// Set the second state when the particle has 2 second left to live.
+		state_change 2
+		// And here is has the suffix 2, which in turn sets the change per second for state 2
+		red2	0
+		green2	+1
+		blue2	+1
+		// This is all works for the alpha channel to of course.
+		alpha2  -1
+	}
+	// ColourInterpolators can have up to 6 colour intervals indexed 0 to 5.
+	affector ColourInterpolator {
+		time0 0
+		colour0 1 0 0 0
+
+		time1 0.195
+		colour1 1 1 0 1
+
+		time2 0.39
+		colour2 0 1 1 1
+
+		time3 0.585
+		colour3 0 0 1 1
+
+		time4 0.78
+		colour4 1 0 1 1
+
+		time5 1
+		colour5 0 1 0 0
+	}
+	// This will make the particles fly around like they have no tomorrow.
+	affector DirectionRandomiser {
+		// This indicates the magnitude of the random choices the particle makes.
+		randomness 	220
+		// Scope governs the chance that a given particle takes a random direction change scale from 0..1 ~ 0-100%
+		scope 		1
+		// Here you can indicate if the particle should randomize its velocity or not. <true|false>
+		keep_velocity true
+	}
+//	affector DeflectorPlane {
+		//The point of the plane, note: the plane is infinite
+//		plane_point 	10 0 0
+		// The normal vector of the plane, the direction of the particles will be mirror around this normal.
+//		plane_normal 	-0.7 0.7 0
+		// The amount of velocity the particles retain after the collision.
+//		bounce 		1.0
+//	}
+
+	// You can provide more than one plane.
+//	affector DeflectorPlane {
+//		plane_point 	10 15 0
+//		plane_normal 	-0.7 -0.7 0
+//		bounce 		1.0
+//	}
+	affector DeflectorPlane {
+		plane_point 	0 -5 0
+		plane_normal 	0 1 0
+		bounce 		1.0
+	}
+	affector LinearForce
+	{
+	     force_vector 0 -100 0
+	}
+	// Make the emitters origin a point.
+	emitter Point {
+		// Make the emitter emit 30 particles per second.
+		emission_rate		100
+		// Emit the particles in the given direction, at a velocity of 20 units per second.
+		direction		0 1 0
+		velocity		100
+		colour 1 0 0 0
+		time_to_live 1.5
+		// Emit particles for 1 second at a time with a 1 second interval.
+		duration 	1000
+		// repeat_delay 1
+	}
+}

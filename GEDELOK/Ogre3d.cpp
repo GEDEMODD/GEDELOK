@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "MySceneManager.h"
 #include "MyFrameListener.h"
 int main()
@@ -9,4 +10,5 @@ int main()
 		app.renderOneFrame();
 	}
 	return 0;
+	// echonest
 }
