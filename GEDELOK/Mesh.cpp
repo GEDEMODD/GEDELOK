@@ -3,7 +3,9 @@
 
 Mesh::Mesh(Ogre::SceneManager* sceneManager,  
 			   std::string name, 
-			   std::string meshName)
+			   std::string meshName,
+			   int frequentcyRange, 
+			   float threashold) : Observer(frequentcyRange, threashold)
 {
 	_entity = sceneManager->createEntity(name, meshName);
 	_node = sceneManager->getRootSceneNode()->createChildSceneNode();
@@ -18,6 +20,16 @@ Mesh::~Mesh(void)
 {
 	//delete _entity;
 	//delete _node;
+}
+
+void Mesh::update(float value)
+{
+	Ogre::Vector3 currentScale = getScale();
+	if ( value > this->getThreashold() ) {
+		setScale(Ogre::Vector3(currentScale.x + _scaling.x, currentScale.y + _scaling.y, currentScale.z + _scaling.z));
+	} else {
+		setScale(Ogre::Vector3(currentScale.x - (_scaling.x * 1.1), currentScale.y - (_scaling.x * 1.1), currentScale.z - (_scaling.x * 1.1)));
+	}
 }
 
 Ogre::SceneNode* Mesh::getNode()
@@ -56,26 +68,4 @@ void Mesh::setMinSize(double minSize)
 void Mesh::setScaling(Ogre::Vector3 scaling)
 {
 	_scaling = scaling;
-}
-
-void Mesh::increase()
-{
-	Ogre::Vector3 currentScale = getScale();
-	setScale(Ogre::Vector3(currentScale.x + _scaling.x, currentScale.y + _scaling.y, currentScale.z + _scaling.z));
-}
-
-void Mesh::decrease()
-{
-	Ogre::Vector3 currentScale = getScale();
-	setScale(Ogre::Vector3(currentScale.x - (_scaling.x * 1.1), currentScale.y - (_scaling.x * 1.1), currentScale.z - (_scaling.x * 1.1)));
-}
-
-void Mesh::setFreqSubscription(int freqSubscription)
-{
-	_freqSubscription = freqSubscription;
-}
-
-int Mesh::getFreqSubscription()
-{
-	return _freqSubscription;
 }

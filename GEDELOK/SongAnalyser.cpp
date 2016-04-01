@@ -158,15 +158,6 @@ void SongAnalyser::notify()
 		}
 	}
 
-	//for(unsigned int x = 0; x < observers.size(); x++) {
-	//	Object *curr = observers[x];
-	//	if ( freq[curr->getFreqSubscription()] ) {
-	//		curr->increase();
-	//	} else {
-	//		curr->decrease();
-	//	}
-	//}
-
 	//for(unsigned int x = 0; x < particleBeats.size(); x++) {
 	//	ParticleBeat *curr = particleBeats[x];
 	//	if ( !curr->isActive() && freq[2] ) { 

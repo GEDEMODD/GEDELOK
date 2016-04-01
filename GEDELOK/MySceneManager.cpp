@@ -113,21 +113,19 @@ void MySceneManager::createScene()
 
 	// make donutDab
 	for(int i = 1; i <= 8; i++) {
-		_meshes.push_back(new Mesh(_sceneManager, "donutDab" + i, "Donut.mesh"));
+		_meshes.push_back(new Mesh(_sceneManager, "donutDab" + i, "Donut.mesh", (i - 1), 0.5 / i));
 		_meshes.back()->setPosition(Ogre::Vector3(0, 0, i * -50));
 		_meshes.back()->setMaxSize( 10 );
 		_meshes.back()->setMinSize( 1 );
 		_meshes.back()->setScaling( Ogre::Vector3(0.4, 0.4, 0.4) );
-		_meshes.back()->setFreqSubscription(i - 1);
-		_songAnalyser->addObserver(_meshes.back());
+		_songAnalyser->addObservers(_meshes.back());
 	}
 
-	_meshes.push_back(new Mesh(_sceneManager, "donutDabalish", "Donut.mesh"));
+	_meshes.push_back(new Mesh(_sceneManager, "donutDabalish", "Donut.mesh", 1, 0.5));
 	_meshes.back()->setPosition(Ogre::Vector3(50, 0, -50));
 	_meshes.back()->setMaxSize( 10 );
 	_meshes.back()->setMinSize( 0 );
 	_meshes.back()->setScaling(Ogre::Vector3(2.0, 2.0, 2.0));
-	_meshes.back()->setFreqSubscription(0);
 	_songAnalyser->addObserver(_meshes.back());
 
 	_songAnalyser->addParticleBeat( new ParticleBeat(_sceneManager->createParticleSystem("smoke", "MySmoke1"), _SinbadNode));
