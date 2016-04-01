@@ -47,7 +47,7 @@ public:
 	SongAnalyser(SceneManager* MySceneManager);
 	~SongAnalyser();
 	void update();
-	void addObservers(Observer* ob, int frequencyRage);
+	void addObservers(Observer* ob);
 	void addObserver(Object* newObserver);
 	void addParticleBeat(ParticleBeat* particleBeat);
 	void SongAnalyser::notify();

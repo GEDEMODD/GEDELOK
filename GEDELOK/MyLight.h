@@ -3,14 +3,14 @@
 #include "Observer.h"
 
 #pragma once
-class MyLight : public Observer
+class MyLight : public Observer 
 {
 private: 
 	Ogre::Light* _light;
 
 public:
-	MyLight(Ogre::Light* light);
+	MyLight(Ogre::Light* light, int frequentcyRange, float threashold);
 	~MyLight(void);
-	void update(int value);
+	void update(float value);
 };
 

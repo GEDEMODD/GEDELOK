@@ -5,13 +5,15 @@ class Observer
 {
 private:
 	int _frequentcyRange;
+	float _threashold;
 
 public:
-	Observer(void);
+	Observer(int frequentcyRange, float threashold);
 	~Observer(void);
-	virtual void update(int value);
+	virtual void update(float value) = 0;
 
 	int getFrequentcyRange();
 	void setFrequentcyRange(int range);
+	float getThreashold();
 };
 

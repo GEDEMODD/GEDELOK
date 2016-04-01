@@ -109,7 +109,7 @@ void MySceneManager::createScene()
 	_songAnalyser = new SongAnalyser(_sceneManager);
 	_listener->setSongAnalyser(_songAnalyser);
 	
-	_songAnalyser->addObservers(new MyLight(_sceneManager->createLight( "Light1" )), 10);
+	_songAnalyser->addObservers(new MyLight(_sceneManager->createLight( "Light2" ), 1, 0.5));
 
 	// make donutDab
 	for(int i = 1; i <= 8; i++) {

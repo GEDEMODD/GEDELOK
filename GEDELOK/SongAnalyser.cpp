@@ -118,9 +118,8 @@ void SongAnalyser::update()
 	}
 }
 
-void SongAnalyser::addObservers(Observer* ob, int frequencyRage)
+void SongAnalyser::addObservers(Observer* ob)
 {
-	ob->setFrequentcyRange(frequencyRage);
 	obs.push_back(ob);
 }
 
@@ -146,37 +145,44 @@ void SongAnalyser::notify()
 	double threashold = 0.01;
 
 	float value = fft[0];
-	bool freq[8] = {false, false, false, false, false, false, false, false };
+	float freq[8] = {0, 0, 0, 0, 0, 0, 0, 0 };
 
 	for (int i = 0; i < FREQUENCIES; i++) {
 		value = fft[i] <= 0.0 ? 0 : fft[i];
 		logFile << "[" << i << "]:\t" << fft[i]  << " = " << value << "\n";
 		
 		for (int j = 0; j < RANGES; j++) {
-			if ( i >= ranges[j] && i < ranges[j+1] &&  !freq[j]) {
-				freq[j] = value > threashold;
+			if ( i >= ranges[j] && i < ranges[j+1] ) {
+				freq[j] += value;
 			}
 		}
 	}
 
-	for(unsigned int x = 0; x < observers.size(); x++) {
-		Object *curr = observers[x];
-		if ( freq[curr->getFreqSubscription()] ) {
-			curr->increase();
-		} else {
-			curr->decrease();
-		}
-	}
+	//for(unsigned int x = 0; x < observers.size(); x++) {
+	//	Object *curr = observers[x];
+	//	if ( freq[curr->getFreqSubscription()] ) {
+	//		curr->increase();
+	//	} else {
+	//		curr->decrease();
+	//	}
+	//}
 
-	for(unsigned int x = 0; x < particleBeats.size(); x++) {
-		ParticleBeat *curr = particleBeats[x];
-		if ( !curr->isActive() && freq[2] ) { 
-			curr->start();
-		} else if ( curr->isActive() ) {
-			curr->stop();
-		}
+	//for(unsigned int x = 0; x < particleBeats.size(); x++) {
+	//	ParticleBeat *curr = particleBeats[x];
+	//	if ( !curr->isActive() && freq[2] ) { 
+	//		curr->start();
+	//	} else if ( curr->isActive() ) {
+	//		curr->stop();
+	//	}
+	//}
+
+	for(unsigned int i = 0; i < obs.size(); i++) {
+		float value = freq[obs[i]->getFrequentcyRange()];
+		obs[i]->update(value);
 	}
 }
+
+
 
 
 
