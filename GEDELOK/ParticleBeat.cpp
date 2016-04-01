@@ -21,7 +21,8 @@ ParticleBeat::~ParticleBeat(void)
 }
 
 void ParticleBeat::update(float value)
-{
+{	
+	this->setThreashold(0.6*this->getThreashold()+0.45*value);
 	if ( value > this->getThreashold() && !isActive() ) {
 		start();
 	} else {

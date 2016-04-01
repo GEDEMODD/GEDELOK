@@ -135,8 +135,8 @@ void SongAnalyser::notify()
 	float freq[8] = {0, 0, 0, 0, 0, 0, 0, 0 };
 	float avg[8] = {0, 0, 0, 0, 0, 0, 0, 0 };
 
-	for (int i = 0; i < FREQUENCIES; i++) {
-		value = fft[i] <= 0.0 ? 0 : fft[i];
+	for (int i = 0; i < FREQUENCIES; i++) { 
+		value = fft[i] <= 0.0 ? 0 : fft[i]; // make sure it's non-negative
 		logFile << "[" << i << "]:\t" << fft[i]  << " = " << value << "\n";
 		
 		for (int j = 0; j < RANGES; j++) {
@@ -144,6 +144,7 @@ void SongAnalyser::notify()
 				freq[j] += value;
 			}
 		}
+
 	}
 
 	for(unsigned int i = 0; i < obs.size(); i++) {

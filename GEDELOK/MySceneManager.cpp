@@ -121,15 +121,17 @@ void MySceneManager::createScene()
 	_songAnalyser->addObserver(new MyLight(_sceneManager->createLight( "Light3" ), 1, 0.5));
 
 	for(int i = 1; i <= 8; i++) {
-		_meshes.push_back(new Mesh(_sceneManager, "donutShowcase" + i, "Donut.mesh", i, 0.4/i));
+		_meshes.push_back(new Mesh(_sceneManager, "donutShowcase" + i, "Donut.mesh", i-1, 1.5/pow(10, i)));
 		_meshes.back()->setPosition(Ogre::Vector3(170, i*10, -142.5));
-		_meshes.back()->setMaxSize( 40 );
-		_meshes.back()->setMinSize( 10 );
+		_meshes.back()->setMaxSize( 50/i );
+		_meshes.back()->setMinSize( 10/i );
 		_meshes.back()->setScaling(Ogre::Vector3(2.0, 2.0, 2.0));
 		_songAnalyser->addObserver(_meshes.back());
 	}
 
-	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke", "MySmoke1"), _SinbadNode, 1, 0.1));
+	Ogre::SceneNode* particleShowcase1 = _sceneManager->getRootSceneNode()->createChildSceneNode();
+	particleShowcase1->setPosition(170, 0, -42.5);
+	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke", "MySmoke1"), particleShowcase1, 1, 0.1));
 }
 
 void MySceneManager::renderOneFrame()
