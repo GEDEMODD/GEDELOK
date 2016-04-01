@@ -1,7 +1,8 @@
 #include "stdafx.h"
+#include "Observer.h"
 
 #pragma once
-class Object
+class Mesh : public Observer
 {
 private:
 	Ogre::SceneNode* _node;
@@ -9,29 +10,26 @@ private:
 	double _maxSize;
 	double _minSize;
 	Ogre::Vector3 _scaling;
-	int _freqSubscription;
 
 public:
-	Object(Ogre::SceneManager* sceneManager, 
+	Mesh(Ogre::SceneManager* sceneManager, 
 		std::string name, 
-		std::string meshName);
-	~Object(void);
+		std::string meshName,
+		int frequentcyRange, 
+		float threashold);
+
+	~Mesh(void);
+
+	void update(float value);
 
 	Ogre::SceneNode* getNode();
 	void setPosition(Ogre::Vector3 position);
 	
-	Ogre::Vector3 Object::getScale();
+	Ogre::Vector3 Mesh::getScale();
 	void setScale(Ogre::Vector3 scale);
 
 	void setMaxSize(double maxSize);
 	void setMinSize(double minSize);
 
 	void setScaling(Ogre::Vector3 scaling);
-	void increase();
-	void decrease();
-
-	void setFreqSubscription(int freqSubscription);
-	int getFreqSubscription();
-
 };
-

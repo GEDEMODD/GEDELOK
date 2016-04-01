@@ -99,6 +99,7 @@ void MySceneManager::createScene()
 	light2->setSpecularColour(1,1,1);
 	light2->setDirection( Ogre::Vector3(-1, -1, 0.5) );
 
+
 	// add shadows 
 	_sceneManager->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
 
@@ -117,38 +118,25 @@ void MySceneManager::createScene()
 	_songAnalyser = new SongAnalyser(_sceneManager);
 	_listener->setSongAnalyser(_songAnalyser);
 	
-	// make donutDab
-	for(int i = 1; i <= 8; i++) {
-		objects.push_back(new Object(_sceneManager, "donutDab" + i, "Donut.mesh"));
-		objects.back()->setPosition(Ogre::Vector3(0, 0, i * -50));
-		objects.back()->setMaxSize( 10 );
-		objects.back()->setMinSize( 1 );
-		objects.back()->setScaling( Ogre::Vector3(0.4, 0.4, 0.4) );
-		objects.back()->setFreqSubscription(i - 1);
-		_songAnalyser->addObserver(objects.back());
-	}
+	_songAnalyser->addObservers(new MyLight(_sceneManager->createLight( "Light3" ), 1, 0.5));
 
-	objects.push_back(new Object(_sceneManager, "donutDabalish", "Donut.mesh"));
-	objects.back()->setPosition(Ogre::Vector3(50, 0, -50));
-	objects.back()->setMaxSize( 10 );
-	objects.back()->setMinSize( 0 );
-	objects.back()->setScaling(Ogre::Vector3(2.0, 2.0, 2.0));
-	objects.back()->setFreqSubscription(0);
-	_songAnalyser->addObserver(objects.back());
-
-	
+	_meshes.push_back(new Mesh(_sceneManager, "donutDabalish", "Donut.mesh", 1, 0.5));
+	_meshes.back()->setPosition(Ogre::Vector3(50, 0, -50));
+	_meshes.back()->setMaxSize( 10 );
+	_meshes.back()->setMinSize( 0 );
+	_meshes.back()->setScaling(Ogre::Vector3(2.0, 2.0, 2.0));
+	_songAnalyser->addObservers(_meshes.back());
 
 	for(int i = 1; i <= 8; i++) {
-		objects.push_back(new Object(_sceneManager, "donutShowcase" + i, "Donut.mesh"));
-		objects.back()->setPosition(Ogre::Vector3(170, i*10, -142.5));
-		objects.back()->setMaxSize( 40/i );
-		objects.back()->setMinSize( 10/i );
-		objects.back()->setScaling(Ogre::Vector3(2.0/i, 2.0/i, 2.0/i));
-		objects.back()->setFreqSubscription(i);
-		_songAnalyser->addObserver(objects.back());
+		_meshes.push_back(new Mesh(_sceneManager, "donutShowcase" + i, "Donut.mesh", i, 0.4));
+		_meshes.back()->setPosition(Ogre::Vector3(170, i*10, -142.5));
+		_meshes.back()->setMaxSize( 40/i );
+		_meshes.back()->setMinSize( 10/i );
+		_meshes.back()->setScaling(Ogre::Vector3(2.0/i, 2.0/i, 2.0/i));
+		_songAnalyser->addObserver(_meshes.back());
 	}
 
-	_songAnalyser->addParticleBeat( new ParticleBeat(_sceneManager->createParticleSystem("smoke", "MySmoke1"), _SinbadNode));
+	_songAnalyser->addObservers( new ParticleBeat(_sceneManager->createParticleSystem("smoke", "MySmoke1"), _SinbadNode, 1, 0.1));
 }
 
 void MySceneManager::renderOneFrame()
@@ -166,43 +154,43 @@ bool MySceneManager::keepRunning()
 
 void MySceneManager::makeRoom(){
 	// Define a floor plane mesh
-        Plane p;
-        p.normal = Vector3::UNIT_Y;
+        Ogre::Plane p;
+        p.normal = Ogre::Vector3::UNIT_Y;
         p.d = 200;
 
-        MeshManager::getSingleton().createPlane("FloorPlane",
-         ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-         p,2000,2000,1,1,true,1,5,5,Vector3::UNIT_Z);
+        Ogre::MeshManager::getSingleton().createPlane("FloorPlane",
+        Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+         p,2000,2000,1,1,true,1,5,5,Ogre::Vector3::UNIT_Z);
 
-        p.normal = Vector3::UNIT_Z;
+        p.normal = Ogre::Vector3::UNIT_Z;
         p.d = 200;
-        MeshManager::getSingleton().createPlane("FirstWallPlane",
-         ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-         p,2000,2000,1,1,true,1,5,5,Vector3::UNIT_Y);
+        Ogre::MeshManager::getSingleton().createPlane("FirstWallPlane", 
+			Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+			p,2000,2000,1,1,true,1,5,5,Ogre::Vector3::UNIT_Y);
 
-		p.normal = Vector3::NEGATIVE_UNIT_Z;
+		p.normal = Ogre::Vector3::NEGATIVE_UNIT_Z;
         p.d = 200;
-		MeshManager::getSingleton().createPlane("SecondWallPlane",
-         ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-		 p,2000,2000,1,1,true,1,5,5,Vector3::UNIT_Y);
+		Ogre::MeshManager::getSingleton().createPlane("SecondWallPlane",
+			Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+			p,2000,2000,1,1,true,1,5,5,Ogre::Vector3::UNIT_Y);
 
-		p.normal = Vector3::UNIT_X;
+		p.normal = Ogre::Vector3::UNIT_X;
         p.d = 200;
-		MeshManager::getSingleton().createPlane("ThirdWallPlane",
-         ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-		 p,2000,2000,1,1,true,1,5,5,Vector3::UNIT_Y);
+		Ogre::MeshManager::getSingleton().createPlane("ThirdWallPlane",
+			Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+			p,2000,2000,1,1,true,1,5,5,Ogre::Vector3::UNIT_Y);
 
-		p.normal = Vector3::NEGATIVE_UNIT_X;
+		p.normal = Ogre::Vector3::NEGATIVE_UNIT_X;
         p.d = 200;
-		MeshManager::getSingleton().createPlane("FourthWallPlane",
-         ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-		 p,2000,2000,1,1,true,1,5,5,Vector3::UNIT_Y);
+		Ogre::MeshManager::getSingleton().createPlane("FourthWallPlane",
+			Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+		 p,2000,2000,1,1,true,1,5,5,Ogre::Vector3::UNIT_Y);
 
-		p.normal = Vector3::NEGATIVE_UNIT_Y;
+		p.normal = Ogre::Vector3::NEGATIVE_UNIT_Y;
         p.d = 200;
-		MeshManager::getSingleton().createPlane("Roof",
-         ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-		 p,2000,2000,1,1,true,1,5,5,Vector3::UNIT_Z);
+		Ogre::MeshManager::getSingleton().createPlane("Roof",
+			Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+			p,2000,2000,1,1,true,1,5,5,Ogre::Vector3::UNIT_Z);
 
         // Create an entity (the floor)
        Ogre::Entity* ent = _sceneManager->createEntity("floor", "FloorPlane");
@@ -235,7 +223,7 @@ void MySceneManager::makeRoom(){
 
         _sceneManager->getRootSceneNode()->attachObject(ent);
 
-		String boxMatName = "Material.002";
+		std::string boxMatName = "Material.002";
 		double boxW = 0.75, boxL = 0.75, boxH = 0.05;
 		double distToWall = 160.0;
 

@@ -12,10 +12,10 @@
 
 #include "bass.h"
 #include "ParticleBeat.h"
-#include "Object.h"
+#include "Mesh.h"
 #include "MyLight.h"
+#include "Observer.h"
 
-using namespace Ogre;
 #pragma once
 class SongAnalyser : public Ogre::Singleton<SongAnalyser>
 {
@@ -26,10 +26,11 @@ class SongAnalyser : public Ogre::Singleton<SongAnalyser>
 #define RANGES 8
 
 private:
-	SceneManager* mSceneMgr;
+	Ogre::SceneManager* mSceneMgr;
 	DWORD chan;
-	SceneNode* cubes[BANDS];
-	std::vector<Object *> observers;
+	Ogre::SceneNode* cubes[BANDS];
+	std::vector<Mesh *> observers;
+	std::vector<Observer *> obs;
 	std::vector<ParticleBeat*> particleBeats;
 	std::vector<MyLight*> lights;
 	std::ofstream logFile; 
@@ -42,10 +43,11 @@ private:
 public:
 	static SongAnalyser& getSingleton(void);
 	static SongAnalyser* getSingletonPtr(void);
-	SongAnalyser(SceneManager* MySceneManager);
+	SongAnalyser(Ogre::SceneManager* MySceneManager);
 	~SongAnalyser();
 	void update();
-	void addObserver(Object* newObserver);
+	void addObservers(Observer* ob);
+	void addObserver(Mesh* newObserver);
 	void addParticleBeat(ParticleBeat* particleBeat);
 	void SongAnalyser::notify();
 	void SongAnalyser::changeSong();
