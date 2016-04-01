@@ -12,15 +12,15 @@ SongAnalyser& SongAnalyser::getSingleton(void)
 	assert( msSingleton );  return ( *msSingleton );
 }
 
-SongAnalyser::SongAnalyser(SceneManager* sceneManager)
+SongAnalyser::SongAnalyser(Ogre::SceneManager* sceneManager)
 {
 	mSceneMgr = sceneManager;
 	for (int i = 0; i < BANDS; i++) {
-		Entity* ent = mSceneMgr->createEntity("mycube" + StringConverter::toString(i),"cube.mesh");
+		Ogre::Entity* ent = mSceneMgr->createEntity("mycube" + Ogre::StringConverter::toString(i),"cube.mesh");
 		cubes[i] = mSceneMgr->getRootSceneNode()->createChildSceneNode();
 		cubes[i]->attachObject(ent);
-		cubes[i]->setScale(Vector3(0.1,0.1,0.1));
-		cubes[i]->setPosition(Vector3(-1000,0,(i*20) - 1000));
+		cubes[i]->setScale(Ogre::Vector3(0.1,0.1,0.1));
+		cubes[i]->setPosition(Ogre::Vector3(-1000,0,(i*20) - 1000));
 	}
 
 	_songs.push_back("../songs/UnitySong.mp3");
@@ -112,13 +112,19 @@ void SongAnalyser::update()
 		// x will range from 0 to BANDS
 		// y will range from 0 (sometimes negative) to SPECHEIGHT
 		// now let's visualize it with cubes
-		Vector3 currentpos = cubes[x]->getPosition();
+		Ogre::Vector3 currentpos = cubes[x]->getPosition();
 		cubes[x]->setScale(0.1, (float)y / 200, 0.1);
 		cubes[x]->setPosition(currentpos.x, 0.5 * 106.08 * (float)y / 50.0 , currentpos.z);
 	}
 }
 
-void SongAnalyser::addObserver(Object* newObserver)
+void SongAnalyser::addObservers(Observer* ob)
+{
+	obs.push_back(ob);
+}
+
+
+void SongAnalyser::addObserver(Mesh* newObserver)
 {
 	observers.push_back(newObserver);
 }
@@ -139,35 +145,35 @@ void SongAnalyser::notify()
 	double threashold = 0.01;
 
 	float value = fft[0];
-	bool freq[8] = {false, false, false, false, false, false, false, false };
+	float freq[8] = {0, 0, 0, 0, 0, 0, 0, 0 };
 
 	for (int i = 0; i < FREQUENCIES; i++) {
 		value = fft[i] <= 0.0 ? 0 : fft[i];
 		logFile << "[" << i << "]:\t" << fft[i]  << " = " << value << "\n";
 		
 		for (int j = 0; j < RANGES; j++) {
-			if ( i >= ranges[j] && i < ranges[j+1] &&  !freq[j]) {
-				freq[j] = value > threashold;
+			if ( i >= ranges[j] && i < ranges[j+1] ) {
+				freq[j] += value;
 			}
 		}
 	}
 
-	for(unsigned int x = 0; x < observers.size(); x++) {
-		Object *curr = observers[x];
-		if ( freq[curr->getFreqSubscription()] ) {
-			curr->increase();
-		} else {
-			curr->decrease();
-		}
-	}
+	//for(unsigned int x = 0; x < particleBeats.size(); x++) {
+	//	ParticleBeat *curr = particleBeats[x];
+	//	if ( !curr->isActive() && freq[2] ) { 
+	//		curr->start();
+	//	} else if ( curr->isActive() ) {
+	//		curr->stop();
+	//	}
+	//}
 
-	for(unsigned int x = 0; x < particleBeats.size(); x++) {
-		ParticleBeat *curr = particleBeats[x];
-		if ( !curr->isActive() && freq[2] ) { 
-			curr->start();
-		} else if ( curr->isActive() ) {
-			curr->stop();
-		}
+	for(unsigned int i = 0; i < obs.size(); i++) {
+		float value = freq[obs[i]->getFrequentcyRange()];
+		obs[i]->update(value);
 	}
 }
+
+
+
+
 
