@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Observer.h"
 
+#include <fstream>
+
 #pragma once
 class Mesh : public Observer
 {
@@ -10,6 +12,7 @@ private:
 	double _maxSize;
 	double _minSize;
 	Ogre::Vector3 _scaling;
+	std::ofstream logFile; 
 
 public:
 	Mesh(Ogre::SceneManager* sceneManager, 

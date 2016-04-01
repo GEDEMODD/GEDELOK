@@ -158,15 +158,6 @@ void SongAnalyser::notify()
 		}
 	}
 
-	//for(unsigned int x = 0; x < particleBeats.size(); x++) {
-	//	ParticleBeat *curr = particleBeats[x];
-	//	if ( !curr->isActive() && freq[2] ) { 
-	//		curr->start();
-	//	} else if ( curr->isActive() ) {
-	//		curr->stop();
-	//	}
-	//}
-
 	for(unsigned int i = 0; i < obs.size(); i++) {
 		float value = freq[obs[i]->getFrequentcyRange()];
 		obs[i]->update(value);
