@@ -45,7 +45,6 @@ SongAnalyser::SongAnalyser(Ogre::SceneManager* sceneManager)
 	// Open the Log file
 	logFile.open("log.txt");
 
-	accelerator = 1;
 	for (int i = 0; i <= RANGES ; i++ )  {
 		ranges[i] = (FREQUENCIES/RANGES) * i;
 	}
@@ -132,10 +131,9 @@ void SongAnalyser::notify()
 	int y = 0, b0 = 0;
 	//DWORD val = BASS_ChannelGetLevel(chan);
 
-	double threashold = 0.01;
-
 	float value = fft[0];
 	float freq[8] = {0, 0, 0, 0, 0, 0, 0, 0 };
+	float avg[8] = {0, 0, 0, 0, 0, 0, 0, 0 };
 
 	for (int i = 0; i < FREQUENCIES; i++) {
 		value = fft[i] <= 0.0 ? 0 : fft[i];
@@ -150,7 +148,7 @@ void SongAnalyser::notify()
 
 	for(unsigned int i = 0; i < obs.size(); i++) {
 		float value = freq[obs[i]->getFrequentcyRange()];
-		obs[i]->update(value);
+		obs[i]->update(value > 0 ? value : 0);
 	}
 }
 
