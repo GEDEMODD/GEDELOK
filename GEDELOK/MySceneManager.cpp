@@ -140,11 +140,11 @@ void MySceneManager::createScene()
 
 	for(int i = 1; i <= 8; i++) {
 		objects.push_back(new Object(_sceneManager, "donutShowcase" + i, "Donut.mesh"));
-		objects.back()->setPosition(Ogre::Vector3(170, i*10, -142.5));
+		objects.back()->setPosition(Ogre::Vector3(170, (i-1)*+2, -142.5));
 		objects.back()->setMaxSize( 40/i );
 		objects.back()->setMinSize( 10/i );
-		objects.back()->setScaling(Ogre::Vector3(2.0/i, 2.0/i, 2.0/i));
-		objects.back()->setFreqSubscription(i);
+		objects.back()->setScaling(Ogre::Vector3(2.0, 2.0, 2.0));
+		objects.back()->setFreqSubscription(i-1);
 		_songAnalyser->addObserver(objects.back());
 	}
 
