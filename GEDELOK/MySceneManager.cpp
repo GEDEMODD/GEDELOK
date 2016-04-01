@@ -91,6 +91,7 @@ void MySceneManager::createScene()
 	light->setType( Ogre::Light::LT_DIRECTIONAL );
 	light->setDirection( Ogre::Vector3(1, -1, 0) );
 
+
 	// add shadows 
 	_sceneManager->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
 
@@ -108,6 +109,8 @@ void MySceneManager::createScene()
 	_songAnalyser = new SongAnalyser(_sceneManager);
 	_listener->setSongAnalyser(_songAnalyser);
 	
+	_songAnalyser->addObservers(new MyLight(_sceneManager->createLight( "Light1" )), 10);
+
 	// make donutDab
 	for(int i = 1; i <= 8; i++) {
 		objects.push_back(new Object(_sceneManager, "donutDab" + i, "Donut.mesh"));

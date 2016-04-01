@@ -14,6 +14,7 @@
 #include "ParticleBeat.h"
 #include "Object.h"
 #include "MyLight.h"
+#include "Observer.h"
 
 using namespace Ogre;
 #pragma once
@@ -30,6 +31,7 @@ private:
 	DWORD chan;
 	SceneNode* cubes[BANDS];
 	std::vector<Object *> observers;
+	std::vector<Observer *> obs;
 	std::vector<ParticleBeat*> particleBeats;
 	std::vector<MyLight*> lights;
 	std::ofstream logFile; 
@@ -45,6 +47,7 @@ public:
 	SongAnalyser(SceneManager* MySceneManager);
 	~SongAnalyser();
 	void update();
+	void addObservers(Observer* ob, int frequencyRage);
 	void addObserver(Object* newObserver);
 	void addParticleBeat(ParticleBeat* particleBeat);
 	void SongAnalyser::notify();

@@ -3,10 +3,13 @@
 	
 MyLight::MyLight(Ogre::Light* light)
 {
-	_light = light;
 }
-
 
 MyLight::~MyLight(void)
 {
+}
+
+void MyLight::update(int value)
+{
+
 }

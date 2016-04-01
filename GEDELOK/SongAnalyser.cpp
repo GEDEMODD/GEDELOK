@@ -118,6 +118,13 @@ void SongAnalyser::update()
 	}
 }
 
+void SongAnalyser::addObservers(Observer* ob, int frequencyRage)
+{
+	ob->setFrequentcyRange(frequencyRage);
+	obs.push_back(ob);
+}
+
+
 void SongAnalyser::addObserver(Object* newObserver)
 {
 	observers.push_back(newObserver);
