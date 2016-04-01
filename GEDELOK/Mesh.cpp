@@ -65,6 +65,7 @@ void Mesh::setMaxSize(double maxSize)
 
 void Mesh::setMinSize(double minSize)
 {
+	_node->setScale(Ogre::Vector3(minSize, minSize, minSize));
 	_minSize = minSize;
 }
 
