@@ -29,10 +29,7 @@ private:
 	Ogre::SceneManager* mSceneMgr;
 	DWORD chan;
 	Ogre::SceneNode* cubes[BANDS];
-	std::vector<Mesh *> observers;
 	std::vector<Observer *> obs;
-	std::vector<ParticleBeat*> particleBeats;
-	std::vector<MyLight*> lights;
 	std::ofstream logFile; 
 	float accelerator;
 	int ranges[RANGES + 1];
@@ -46,9 +43,7 @@ public:
 	SongAnalyser(Ogre::SceneManager* MySceneManager);
 	~SongAnalyser();
 	void update();
-	void addObservers(Observer* ob);
-	void addObserver(Mesh* newObserver);
-	void addParticleBeat(ParticleBeat* particleBeat);
+	void addObserver(Observer* ob);
 	void SongAnalyser::notify();
 	void SongAnalyser::changeSong();
 };

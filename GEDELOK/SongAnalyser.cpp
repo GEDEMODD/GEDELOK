@@ -118,21 +118,11 @@ void SongAnalyser::update()
 	}
 }
 
-void SongAnalyser::addObservers(Observer* ob)
+void SongAnalyser::addObserver(Observer* ob)
 {
 	obs.push_back(ob);
 }
 
-
-void SongAnalyser::addObserver(Mesh* newObserver)
-{
-	observers.push_back(newObserver);
-}
-
-void SongAnalyser::addParticleBeat(ParticleBeat* particleBeat)
-{
-	particleBeats.push_back(particleBeat);
-}
 
 void SongAnalyser::notify()
 {
