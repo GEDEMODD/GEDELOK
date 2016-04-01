@@ -136,6 +136,18 @@ void MySceneManager::createScene()
 	objects.back()->setFreqSubscription(0);
 	_songAnalyser->addObserver(objects.back());
 
+	
+
+	for(int i = 1; i <= 8; i++) {
+		objects.push_back(new Object(_sceneManager, "donutShowcase" + i, "Donut.mesh"));
+		objects.back()->setPosition(Ogre::Vector3(170, i*10, -142.5));
+		objects.back()->setMaxSize( 40/i );
+		objects.back()->setMinSize( 10/i );
+		objects.back()->setScaling(Ogre::Vector3(2.0/i, 2.0/i, 2.0/i));
+		objects.back()->setFreqSubscription(i);
+		_songAnalyser->addObserver(objects.back());
+	}
+
 	_songAnalyser->addParticleBeat( new ParticleBeat(_sceneManager->createParticleSystem("smoke", "MySmoke1"), _SinbadNode));
 }
 
