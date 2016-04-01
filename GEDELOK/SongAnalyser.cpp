@@ -19,8 +19,8 @@ SongAnalyser::SongAnalyser(SceneManager* sceneManager)
 		Entity* ent = mSceneMgr->createEntity("mycube" + StringConverter::toString(i),"cube.mesh");
 		cubes[i] = mSceneMgr->getRootSceneNode()->createChildSceneNode();
 		cubes[i]->attachObject(ent);
-		cubes[i]->setScale(Vector3(0.3,0.3,0.3));
-		cubes[i]->setPosition(Vector3(0,0,i*50));
+		cubes[i]->setScale(Vector3(0.1,0.1,0.1));
+		cubes[i]->setPosition(Vector3(-1000,0,(i*20) - 1000));
 	}
 
 	_songs.push_back("../songs/dab.mp3");
@@ -112,7 +112,7 @@ void SongAnalyser::update()
 		// y will range from 0 (sometimes negative) to SPECHEIGHT
 		// now let's visualize it with cubes
 		Vector3 currentpos = cubes[x]->getPosition();
-		cubes[x]->setScale(0.3, (float)y / 50.0, 0.3);
+		cubes[x]->setScale(0.1, (float)y / 200, 0.1);
 		cubes[x]->setPosition(currentpos.x, 0.5 * 106.08 * (float)y / 50.0 , currentpos.z);
 	}
 }
@@ -162,7 +162,7 @@ void SongAnalyser::notify()
 
 	for(unsigned int x = 0; x < particleBeats.size(); x++) {
 		ParticleBeat *curr = particleBeats[x];
-		if ( !curr->isActive() && freq[0] ) { 
+		if ( !curr->isActive() && freq[1] ) { 
 			curr->start();
 		} else if ( curr->isActive() ) {
 			curr->stop();

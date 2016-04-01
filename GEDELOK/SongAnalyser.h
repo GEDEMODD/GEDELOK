@@ -13,6 +13,7 @@
 #include "bass.h"
 #include "ParticleBeat.h"
 #include "Object.h"
+#include "MyLight.h"
 
 using namespace Ogre;
 #pragma once
@@ -30,6 +31,7 @@ private:
 	SceneNode* cubes[BANDS];
 	std::vector<Object *> observers;
 	std::vector<ParticleBeat*> particleBeats;
+	std::vector<MyLight*> lights;
 	std::ofstream logFile; 
 	float accelerator;
 	int ranges[RANGES + 1];

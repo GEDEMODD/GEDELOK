@@ -85,6 +85,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="bass.h" />
+    <ClInclude Include="MyLight.h" />
     <ClInclude Include="MyFrameListener.h" />
     <ClInclude Include="MySceneManager.h" />
     <ClInclude Include="Object.h" />
@@ -93,6 +94,7 @@
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MyLight.cpp" />
     <ClCompile Include="MyFrameListener.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ParticleBeat.cpp" />
