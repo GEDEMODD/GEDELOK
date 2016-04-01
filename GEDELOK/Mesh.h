@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Observer.h"
 
+#include <fstream>
+
 #pragma once
 class Mesh : public Observer
 {
