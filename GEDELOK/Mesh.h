@@ -10,6 +10,7 @@ private:
 	double _maxSize;
 	double _minSize;
 	Ogre::Vector3 _scaling;
+	std::ofstream logFile; 
 
 public:
 	Mesh(Ogre::SceneManager* sceneManager, 

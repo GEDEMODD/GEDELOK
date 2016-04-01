@@ -13,6 +13,7 @@ Mesh::Mesh(Ogre::SceneManager* sceneManager,
 	_node->setScale(Ogre::Vector3(1, 1, 1));
 	_node->setPosition(Ogre::Vector3(0, 0, 0));
 	_maxSize = 10;
+	logFile.open("mesh.log");
 }
 
 
@@ -20,10 +21,12 @@ Mesh::~Mesh(void)
 {
 	//delete _entity;
 	//delete _node;
+	logFile.close();
 }
 
 void Mesh::update(float value)
 {
+	logFile << getFrequentcyRange() << " :\t " << value << "\n";
 	Ogre::Vector3 currentScale = getScale();
 	if ( value > this->getThreashold() ) {
 		setScale(Ogre::Vector3(currentScale.x + _scaling.x, currentScale.y + _scaling.y, currentScale.z + _scaling.z));
