@@ -89,7 +89,15 @@ void MySceneManager::createScene()
 	// Add one directional light
 	Ogre::Light* light = _sceneManager->createLight( "Light1" );
 	light->setType( Ogre::Light::LT_DIRECTIONAL );
-	light->setDirection( Ogre::Vector3(1, -1, 0) );
+	light->setDiffuseColour(1,1,0.7);
+	light->setDirection( Ogre::Vector3(1, -1, -0.3) );
+
+	// Add one directional light
+	Ogre::Light* light2 = _sceneManager->createLight( "Light2" );
+	light2->setType( Ogre::Light::LT_DIRECTIONAL );
+	light2->setDiffuseColour(0.5, 1, 0.5);
+	light2->setSpecularColour(1,1,1);
+	light2->setDirection( Ogre::Vector3(-1, -1, 0.5) );
 
 	// add shadows 
 	_sceneManager->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
@@ -99,7 +107,8 @@ void MySceneManager::createScene()
 	_listener->setAniState(_SinbadEnt->getAnimationState("RunBase"));
 	_listener->setAniStateTop(_SinbadEnt->getAnimationState("RunTop"));
 	_listener->setNode(_SinbadNode);
-
+	// make the showroom
+	makeRoom();
 	// Create a particle system
 	//Ogre::ParticleSystem* partSystem = _sceneManager->createParticleSystem("smoke", "MySmoke1");
 	// Attach the particle system to Sinbad
@@ -141,4 +150,98 @@ void MySceneManager::renderOneFrame()
 bool MySceneManager::keepRunning()
 {
 	return _keepRunning;	
+}
+
+void MySceneManager::makeRoom(){
+	// Define a floor plane mesh
+        Plane p;
+        p.normal = Vector3::UNIT_Y;
+        p.d = 200;
+
+        MeshManager::getSingleton().createPlane("FloorPlane",
+         ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+         p,2000,2000,1,1,true,1,5,5,Vector3::UNIT_Z);
+
+        p.normal = Vector3::UNIT_Z;
+        p.d = 200;
+        MeshManager::getSingleton().createPlane("FirstWallPlane",
+         ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+         p,2000,2000,1,1,true,1,5,5,Vector3::UNIT_Y);
+
+		p.normal = Vector3::NEGATIVE_UNIT_Z;
+        p.d = 200;
+		MeshManager::getSingleton().createPlane("SecondWallPlane",
+         ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+		 p,2000,2000,1,1,true,1,5,5,Vector3::UNIT_Y);
+
+		p.normal = Vector3::UNIT_X;
+        p.d = 200;
+		MeshManager::getSingleton().createPlane("ThirdWallPlane",
+         ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+		 p,2000,2000,1,1,true,1,5,5,Vector3::UNIT_Y);
+
+		p.normal = Vector3::NEGATIVE_UNIT_X;
+        p.d = 200;
+		MeshManager::getSingleton().createPlane("FourthWallPlane",
+         ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+		 p,2000,2000,1,1,true,1,5,5,Vector3::UNIT_Y);
+
+		p.normal = Vector3::NEGATIVE_UNIT_Y;
+        p.d = 200;
+		MeshManager::getSingleton().createPlane("Roof",
+         ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+		 p,2000,2000,1,1,true,1,5,5,Vector3::UNIT_Z);
+
+        // Create an entity (the floor)
+       Ogre::Entity* ent = _sceneManager->createEntity("floor", "FloorPlane");
+        ent->setMaterialName("Core/StatsBlockBorder/Up");
+
+        _sceneManager->getRootSceneNode()->attachObject(ent);
+
+        ent = _sceneManager->createEntity("firstWall", "FirstWallPlane");
+        ent->setMaterialName("Material.001");
+
+        _sceneManager->getRootSceneNode()->attachObject(ent);
+
+		ent = _sceneManager->createEntity("secondWall", "SecondWallPlane");
+        ent->setMaterialName("Material.001");
+
+        _sceneManager->getRootSceneNode()->attachObject(ent);
+
+		ent = _sceneManager->createEntity("thirdWall", "ThirdWallPlane");
+        ent->setMaterialName("Material.001");
+
+        _sceneManager->getRootSceneNode()->attachObject(ent);
+
+		ent = _sceneManager->createEntity("fourthWall", "FourthWallPlane");
+        ent->setMaterialName("Material.001");
+
+        _sceneManager->getRootSceneNode()->attachObject(ent);
+
+		ent = _sceneManager->createEntity("roofWall", "Roof");
+        ent->setMaterialName("Material.001");
+
+        _sceneManager->getRootSceneNode()->attachObject(ent);
+
+		String boxMatName = "Material.002";
+		double boxW = 0.75, boxL = 0.75, boxH = 0.05;
+		double distToWall = 160.0;
+
+		// Platforms for showcase 
+
+		Ogre::Entity* box;
+		Ogre::SceneNode * boxNode;
+		unsigned int count = 0;
+		for(int i = -1; i < 2; i=i+2){
+				for(int j = -142.5; j <= 190; j = j+95){
+					box = _sceneManager->createEntity("Box" + std::to_string(count++) , "Cube.mesh");
+					boxNode = _sceneManager->getRootSceneNode()->createChildSceneNode();
+					box->setMaterialName(boxMatName);
+					boxNode->setPosition(i*distToWall,-5,j);
+					boxNode->setScale(boxW, boxH, boxL);
+					boxNode->attachObject(box);
+				}
+		}
+		
+		
 }

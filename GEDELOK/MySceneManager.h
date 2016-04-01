@@ -25,6 +25,7 @@ private:
 	Ogre::SceneNode* _SinbadNode;
 	Ogre::Entity* _SinbadEnt;
 	std::vector<Object*> objects;
+	void makeRoom();
 
 public:
 	MySceneManager(void);
