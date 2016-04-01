@@ -126,9 +126,9 @@ void MySceneManager::createScene()
 	_meshes.back()->setMaxSize( 10 );
 	_meshes.back()->setMinSize( 0 );
 	_meshes.back()->setScaling(Ogre::Vector3(2.0, 2.0, 2.0));
-	_songAnalyser->addObserver(_meshes.back());
+	_songAnalyser->addObservers(_meshes.back());
 
-	_songAnalyser->addParticleBeat( new ParticleBeat(_sceneManager->createParticleSystem("smoke", "MySmoke1"), _SinbadNode));
+	_songAnalyser->addObservers( new ParticleBeat(_sceneManager->createParticleSystem("smoke", "MySmoke1"), _SinbadNode, 1, 0.1));
 }
 
 void MySceneManager::renderOneFrame()

@@ -1,7 +1,10 @@
 #include "stdafx.h"
 #include "ParticleBeat.h"
 
-ParticleBeat::ParticleBeat(Ogre::ParticleSystem * particleSystem, Ogre::SceneNode * sceneNode)
+ParticleBeat::ParticleBeat(Ogre::ParticleSystem * particleSystem, 
+						   Ogre::SceneNode * sceneNode,
+						   int frequentcyRange,
+						   float threashold) : Observer(frequentcyRange, threashold)
 {
 	_particleSystem = particleSystem;
 	_sceneNode = sceneNode;
@@ -15,6 +18,15 @@ ParticleBeat::ParticleBeat(Ogre::ParticleSystem * particleSystem, Ogre::SceneNod
 
 ParticleBeat::~ParticleBeat(void)
 {
+}
+
+void ParticleBeat::update(float value)
+{
+	if ( value > this->getThreashold() && !isActive() ) {
+		start();
+	} else {
+		stop();
+	}
 }
 
 void ParticleBeat::start()
