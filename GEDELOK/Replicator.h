@@ -1,38 +1,39 @@
 #include "stdafx.h"
 #include "Observer.h"
-
-#include <fstream>
+#include "OgreMath.h"
 
 #pragma once
-class Mesh : public Observer
+class Replicator : public Observer
 {
 private:
+	std::string _meshName;
+	std::string _meshType;
+	Ogre::SceneManager* _sceneManager;
 	Ogre::SceneNode* _node;
 	Ogre::Entity* _entity;
-	double _maxSize;
-	double _minSize;
 	Ogre::Vector3 _scaling;
 	std::ofstream logFile; 
+	std::queue<Ogre::Entity*> children;
 
 public:
-	Mesh(Ogre::SceneManager* sceneManager, 
+	Replicator(Ogre::SceneManager* sceneManager, 
 		std::string name, 
 		std::string meshType,
 		int frequentcyRange, 
 		float threashold);
 
-	~Mesh(void);
+	~Replicator(void);
 
 	void update(float value);
+
+	void createChildren();
 
 	Ogre::SceneNode* getNode();
 	void setPosition(Ogre::Vector3 position);
 	
-	Ogre::Vector3 Mesh::getScale();
+	Ogre::Vector3 Replicator::getScale();
 	void setScale(Ogre::Vector3 scale);
-
-	void setMaxSize(double maxSize);
-	void setMinSize(double minSize);
 
 	void setScaling(Ogre::Vector3 scaling);
 };
+

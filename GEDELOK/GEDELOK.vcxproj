@@ -91,6 +91,7 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="ParticleBeat.h" />
+    <ClInclude Include="Replicator.h" />
     <ClInclude Include="SongAnalyser.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
@@ -102,6 +103,7 @@
     <ClCompile Include="ParticleBeat.cpp" />
     <ClCompile Include="Ogre3d.cpp" />
     <ClCompile Include="MySceneManager.cpp" />
+    <ClCompile Include="Replicator.cpp" />
     <ClCompile Include="SongAnalyser.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

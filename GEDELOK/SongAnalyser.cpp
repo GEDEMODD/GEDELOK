@@ -144,7 +144,6 @@ void SongAnalyser::notify()
 				freq[j] += value;
 			}
 		}
-
 	}
 
 	for(unsigned int i = 0; i < obs.size(); i++) {
