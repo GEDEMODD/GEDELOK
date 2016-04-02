@@ -70,8 +70,8 @@ bool MyFrameListener::frameStarted(const Ogre::FrameEvent& evt)
 	_Mouse->capture();
 	float rotX = _Mouse->getMouseState().X.rel * evt.timeSinceLastFrame* -1;
 	float rotY = _Mouse->getMouseState().Y.rel * evt.timeSinceLastFrame* -1;
-	_Cam->yaw( Ogre::Radian(rotX) );
-	_Cam->pitch( Ogre::Radian(rotY) );
+	_Cam->yaw( Ogre::Radian(rotX * 0.1) );
+	_Cam->pitch( Ogre::Radian(rotY * 0.1) );
 
 	Ogre::Vector3 SinbandTranslate(0, 0, 0);
 	float _rotation = 0.0f;

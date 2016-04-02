@@ -8,6 +8,8 @@
 #include "OgreEntity.h"
 #include "OgreSceneManager.h"
 #include "OgreWindowEventUtilities.h"
+#include "DynamicLines.h"
+#include "LineBeat.h"
 
 #include "bass.h"
 #include "MyFrameListener.h"
