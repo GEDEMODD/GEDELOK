@@ -12,23 +12,9 @@ SongAnalyser& SongAnalyser::getSingleton(void)
 	assert( msSingleton );  return ( *msSingleton );
 }
 
-SongAnalyser::SongAnalyser(Ogre::SceneManager* sceneManager)
+SongAnalyser::SongAnalyser()
 {
-	mSceneMgr = sceneManager;
-	//for (int i = 0; i < BANDS; i++) {
-	//	Ogre::Entity* ent = mSceneMgr->createEntity("mycube" + Ogre::StringConverter::toString(i),"cube.mesh");
-	//	cubes[i] = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-	//	cubes[i]->attachObject(ent);
-	//	cubes[i]->setScale(Ogre::Vector3(0.1,0.1,0.1));
-	//	cubes[i]->setPosition(Ogre::Vector3(-1000,0,(i*20) - 1000));
-	//}
-
-	_songs.push_back("../songs/UnitySong.mp3");
-	_songs.push_back("../songs/dab.mp3");
-	_songs.push_back("../songs/LovelyDay.mp3");
-	_songs.push_back("../songs/army.mp3");
-	_songs.push_back("../songs/wave.mp3");
-	_songs.push_back("../songs/808.mp3");
+	loadSongs();
 
 	// play a song
 	if (!BASS_Init(-1,44100,0,NULL,NULL)) {
@@ -45,6 +31,7 @@ SongAnalyser::SongAnalyser(Ogre::SceneManager* sceneManager)
 	// Open the Log file
 	logFile.open("log.txt");
 
+	// Initilaze frequentcy ranges
 	for (int i = 0; i <= RANGES ; i++ )  {
 		ranges[i] = (FREQUENCIES/RANGES) * i;
 	}
@@ -57,16 +44,31 @@ SongAnalyser::~SongAnalyser()
 	logFile.close();
 }
 
+void SongAnalyser::loadSongs()
+{
+	_songs.push_back("../songs/UnitySong.mp3");
+	_songs.push_back("../songs/Idioteque.mp3");
+	_songs.push_back("../songs/dab.mp3");
+	_songs.push_back("../songs/LovelyDay.mp3");
+	_songs.push_back("../songs/army.mp3");
+	_songs.push_back("../songs/808.mp3");
+}
+
 void SongAnalyser::changeSong()
 {
+	// Stop the current song
+	BASS_ChannelStop(chan);
+	BASS_Free();
+
+	// Update song index
 	if (_current >= (_songs.size() - 1)) {
 		_current = 0;
 	} else {
 		_current++;
 	}
 	char *file = _songs[_current];
-	BASS_ChannelStop(chan);
-	BASS_Free();
+
+	// Play next song
 	if (!BASS_Init(-1,44100,0,NULL,NULL)) {
 		Ogre::LogManager::getSingleton().logMessage("can't initialize BASS");
 	}
@@ -80,56 +82,17 @@ void SongAnalyser::changeSong()
 	}
 }
 
-void SongAnalyser::update()
-{
-	// analyse channel data
-	float fft[FREQUENCIES];
-	BASS_ChannelGetData(chan,fft,BASS_DATA_FFT256); // get the FFT data
-	int y = 0, b0 = 0;
-
-	for (int x = 0; x < BANDS; x++) {
-		float sum = 0;
-		int b1 = pow(2, x * 10.0 / (BANDS-1));
-
-		if (b1 > BANDS) {
-			b1 = BANDS;
-		}
-
-		if (b1 <= b0) {
-			b1 = b0 + 1; // make sure it uses at least 1 FFT bin
-		}
-
-		int sc = 10 + b1 - b0;
-		for (; b0 < b1; b0++) { 
-			sum += fft[1 + b0];
-		}
-		y = (sqrt(sum / log10((float)sc)) * 1.7 * SPECHEIGHT) - 4; // scale it
-		if (y > SPECHEIGHT) { 
-			y = SPECHEIGHT; // cap it
-		}
-
-		// x will range from 0 to BANDS
-		// y will range from 0 (sometimes negative) to SPECHEIGHT
-		// now let's visualize it with cubes
-		Ogre::Vector3 currentpos = cubes[x]->getPosition();
-		cubes[x]->setScale(0.1, (float)y / 200, 0.1);
-		cubes[x]->setPosition(currentpos.x, 0.5 * 106.08 * (float)y / 50.0 , currentpos.z);
-	}
-}
-
 void SongAnalyser::addObserver(Observer* ob)
 {
 	obs.push_back(ob);
 }
 
 
-void SongAnalyser::notify()
+void SongAnalyser::update()
 {
 	// analyse channel data
 	float fft[FREQUENCIES];
 	BASS_ChannelGetData(chan, fft, BASS_DATA_FFT256); // get the FFT data
-	int y = 0, b0 = 0;
-	//DWORD val = BASS_ChannelGetLevel(chan);
 
 	float value = fft[0];
 	float freq[8] = {0, 0, 0, 0, 0, 0, 0, 0 };
@@ -139,6 +102,7 @@ void SongAnalyser::notify()
 		value = fft[i] <= 0.0 ? 0 : fft[i]; // make sure it's non-negative
 		logFile << "[" << i << "]:\t" << fft[i]  << " = " << value << "\n";
 		
+		// Summerise value for the frequentcy ranges
 		for (int j = 0; j < RANGES; j++) {
 			if ( i >= ranges[j] && i < ranges[j+1] ) {
 				freq[j] += value;
@@ -146,6 +110,7 @@ void SongAnalyser::notify()
 		}
 	}
 
+	// Update observers...
 	for(unsigned int i = 0; i < obs.size(); i++) {
 		float value = freq[obs[i]->getFrequentcyRange()];
 		obs[i]->update(value > 0 ? value : 0);

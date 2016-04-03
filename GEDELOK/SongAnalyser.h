@@ -26,24 +26,20 @@ class SongAnalyser : public Ogre::Singleton<SongAnalyser>
 #define RANGES 8
 
 private:
-	Ogre::SceneManager* mSceneMgr;
 	DWORD chan;
-	Ogre::SceneNode* cubes[BANDS];
 	std::vector<Observer *> obs;
 	std::ofstream logFile; 
-	float accelerator;
 	int ranges[RANGES + 1];
 	int _current;
 	std::vector<char *> _songs;
-						   
+	void loadSongs();
 
 public:
 	static SongAnalyser& getSingleton(void);
 	static SongAnalyser* getSingletonPtr(void);
-	SongAnalyser(Ogre::SceneManager* MySceneManager);
+	SongAnalyser();
 	~SongAnalyser();
 	void update();
 	void addObserver(Observer* ob);
-	void SongAnalyser::notify();
 	void SongAnalyser::changeSong();
 };

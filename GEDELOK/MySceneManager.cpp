@@ -115,7 +115,7 @@ void MySceneManager::createScene()
 	// Attach the particle system to Sinbad
 	//_SinbadNode->attachObject(partSystem); 
 
-	_songAnalyser = new SongAnalyser(_sceneManager);
+	_songAnalyser = new SongAnalyser();
 	_listener->setSongAnalyser(_songAnalyser);
 	
 	_songAnalyser->addObserver(new MyLight(_sceneManager->createLight( "Light3" ), 1, 0.5));
@@ -129,7 +129,7 @@ void MySceneManager::createScene()
 		_songAnalyser->addObserver(newMesh);
 	}
 
-	Replicator* rep = new Replicator(_sceneManager, "rep", "sphere.mesh", 7, 0.3);
+	Replicator* rep = new Replicator(_sceneManager, "rep", "sphere.mesh", 2, 0.3);
 	rep->setPosition(Ogre::Vector3(170, 20, 42.5));
 	rep->setScale(Ogre::Vector3(0.05, 0.05, 0.05));
 	rep->setMaterial("Material.blue");
@@ -186,8 +186,7 @@ void MySceneManager::renderOneFrame()
 {
 	Ogre::WindowEventUtilities::messagePump();
 	_keepRunning = _root->renderOneFrame();
-	//_songAnalyser->update();
-	_songAnalyser->notify();
+	_songAnalyser->update();
 }	
 
 bool MySceneManager::keepRunning()
