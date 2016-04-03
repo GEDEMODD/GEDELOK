@@ -121,30 +121,51 @@ void MySceneManager::createScene()
 	_songAnalyser->addObserver(new MyLight(_sceneManager->createLight( "Light3" ), 1, 0.5));
 
 	for(int i = 1; i <= 8; i++) {
-		Mesh* newMesh = new Mesh(_sceneManager, "donutShowcase" + i, "Donut.mesh", i-1, 1.5/pow(10, i));
+		Mesh * newMesh = new Mesh(_sceneManager, "donutShowcase" + i, "Donut.mesh", i-1, 1.5/pow(10, i));
 		newMesh->setPosition(Ogre::Vector3(170, i*10, -142.5));
-		newMesh->setMaxSize( 50/i );
+		newMesh->setMaxSize( 30/i+5 );
 		newMesh->setMinSize( 10/i );
 		newMesh->setScaling(Ogre::Vector3(2.0, 2.0, 2.0));
 		_songAnalyser->addObserver(newMesh);
 	}
 
-	Ogre::SceneNode* particleShowcase1 = _sceneManager->getRootSceneNode()->createChildSceneNode();
-	particleShowcase1->setPosition(170, 0, -42.5);
-	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke", "MySmoke1"), particleShowcase1, 1, 0.1));
-
-	Replicator* rep = new Replicator(_sceneManager, "rep", "sphere.mesh", 1, 0.3);
+	Replicator* rep = new Replicator(_sceneManager, "rep", "sphere.mesh", 5, 0.3);
 	rep->setPosition(Ogre::Vector3(170, 20, 42.5));
-	rep->setScale(Ogre::Vector3(0.2, 0.2, 0.2));
+	rep->setScale(Ogre::Vector3(0.05, 0.05, 0.05));
 	_songAnalyser->addObserver(rep);
 
+	Replicator* repp = new Replicator(_sceneManager, "rep2", "sphere.mesh", 2, 0.3);
+	repp->setPosition(Ogre::Vector3(170, 20, 42.5));
+	repp->setScale(Ogre::Vector3(0.05, 0.05, 0.05));
+	repp->setMaterial("Material.002");
+	_songAnalyser->addObserver(repp);
+
+	Ogre::SceneNode* particleShowcase1 = _sceneManager->getRootSceneNode()->createChildSceneNode();
+	particleShowcase1->setPosition(190, 0, -20);
+	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke1", "MySmoke1"), particleShowcase1, 2, 0.1));
+
+	Ogre::SceneNode* particleShowcase2 = _sceneManager->getRootSceneNode()->createChildSceneNode();
+	particleShowcase2->setPosition(190, 0, -65);
+	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke2", "MySmoke1"), particleShowcase2, 3, 0.1));
+
+	Ogre::SceneNode* particleShowcase3 = _sceneManager->getRootSceneNode()->createChildSceneNode();
+	particleShowcase3->setPosition(140, 0, -20);
+	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke3", "MySmoke1"), particleShowcase3, 5, 0.1));
+
+	Ogre::SceneNode* particleShowcase4 = _sceneManager->getRootSceneNode()->createChildSceneNode();
+	particleShowcase4->setPosition(140, 0, -65);
+	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke4", "MySmoke1"), particleShowcase4, 7, 0.1));
+
+	Ogre::SceneNode* particleShowcase5 = _sceneManager->getRootSceneNode()->createChildSceneNode();
+	particleShowcase5->setPosition(170, 0, -42.5);
+	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke5", "MySmoke2"), particleShowcase5, 0, 0.1));
 }
 
 void MySceneManager::renderOneFrame()
 {
 	Ogre::WindowEventUtilities::messagePump();
 	_keepRunning = _root->renderOneFrame();
-	_songAnalyser->update();
+	//_songAnalyser->update();
 	_songAnalyser->notify();
 }	
 
@@ -226,7 +247,7 @@ void MySceneManager::makeRoom(){
 
 		std::string boxMatName = "Material.002";
 		double boxW = 0.75, boxL = 0.75, boxH = 0.05;
-		double distToWall = 160.0;
+		double distToWall = 170.0;
 
 		// Platforms for showcase 
 

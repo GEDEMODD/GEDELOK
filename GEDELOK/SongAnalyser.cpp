@@ -15,13 +15,13 @@ SongAnalyser& SongAnalyser::getSingleton(void)
 SongAnalyser::SongAnalyser(Ogre::SceneManager* sceneManager)
 {
 	mSceneMgr = sceneManager;
-	for (int i = 0; i < BANDS; i++) {
-		Ogre::Entity* ent = mSceneMgr->createEntity("mycube" + Ogre::StringConverter::toString(i),"cube.mesh");
-		cubes[i] = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-		cubes[i]->attachObject(ent);
-		cubes[i]->setScale(Ogre::Vector3(0.1,0.1,0.1));
-		cubes[i]->setPosition(Ogre::Vector3(-1000,0,(i*20) - 1000));
-	}
+	//for (int i = 0; i < BANDS; i++) {
+	//	Ogre::Entity* ent = mSceneMgr->createEntity("mycube" + Ogre::StringConverter::toString(i),"cube.mesh");
+	//	cubes[i] = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+	//	cubes[i]->attachObject(ent);
+	//	cubes[i]->setScale(Ogre::Vector3(0.1,0.1,0.1));
+	//	cubes[i]->setPosition(Ogre::Vector3(-1000,0,(i*20) - 1000));
+	//}
 
 	_songs.push_back("../songs/UnitySong.mp3");
 	_songs.push_back("../songs/dab.mp3");

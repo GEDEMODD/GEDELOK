@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "Observer.h"
 #include "OgreMath.h"
+#include "OgreMaterial.h"
+#include "OgreStaticGeometry.h"
+#include "OgreQuaternion.h"
 
 #pragma once
 class Replicator : public Observer
@@ -13,7 +16,8 @@ private:
 	Ogre::Entity* _entity;
 	Ogre::Vector3 _scaling;
 	std::ofstream logFile; 
-	std::queue<Ogre::Entity*> children;
+	std::vector<Ogre::Entity*> children;
+	std::string _materialName;
 
 public:
 	Replicator(Ogre::SceneManager* sceneManager, 
@@ -26,7 +30,7 @@ public:
 
 	void update(float value);
 
-	void createChildren();
+	void createChildren(int value);
 
 	Ogre::SceneNode* getNode();
 	void setPosition(Ogre::Vector3 position);
@@ -35,5 +39,7 @@ public:
 	void setScale(Ogre::Vector3 scale);
 
 	void setScaling(Ogre::Vector3 scaling);
+
+	void setMaterial(std::string materialName);
 };
 
