@@ -129,16 +129,23 @@ void MySceneManager::createScene()
 		_songAnalyser->addObserver(newMesh);
 	}
 
-	Replicator* rep = new Replicator(_sceneManager, "rep", "sphere.mesh", 5, 0.3);
+	Replicator* rep = new Replicator(_sceneManager, "rep", "sphere.mesh", 7, 0.3);
 	rep->setPosition(Ogre::Vector3(170, 20, 42.5));
 	rep->setScale(Ogre::Vector3(0.05, 0.05, 0.05));
+	rep->setMaterial("Material.blue");
 	_songAnalyser->addObserver(rep);
 
-	Replicator* repp = new Replicator(_sceneManager, "rep2", "sphere.mesh", 2, 0.3);
+	Replicator* repp = new Replicator(_sceneManager, "rep2", "sphere.mesh", 4, 0.3);
 	repp->setPosition(Ogre::Vector3(170, 20, 42.5));
 	repp->setScale(Ogre::Vector3(0.05, 0.05, 0.05));
-	repp->setMaterial("Material.002");
+	repp->setMaterial("Material.red");
 	_songAnalyser->addObserver(repp);
+
+	Replicator* reppp = new Replicator(_sceneManager, "reppp", "sphere.mesh", 1, 0.3);
+	reppp->setPosition(Ogre::Vector3(170, 20, 42.5));
+	reppp->setScale(Ogre::Vector3(0.05, 0.05, 0.05));
+	reppp->setMaterial("Material.green");
+	_songAnalyser->addObserver(reppp);
 
 	LineBeat * lb;
 
