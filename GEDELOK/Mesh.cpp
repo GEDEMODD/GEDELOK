@@ -3,11 +3,11 @@
 
 Mesh::Mesh(Ogre::SceneManager* sceneManager,  
 			   std::string name, 
-			   std::string meshName,
+			   std::string meshType,
 			   int frequentcyRange, 
 			   float threashold) : Observer(frequentcyRange, threashold)
 {
-	_entity = sceneManager->createEntity(name, meshName);
+	_entity = sceneManager->createEntity(name, meshType);
 	_node = sceneManager->getRootSceneNode()->createChildSceneNode();
 	_node->attachObject(_entity);
 	_node->setScale(Ogre::Vector3(1, 1, 1));

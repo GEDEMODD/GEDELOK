@@ -16,7 +16,7 @@ private:
 public:
 	Mesh(Ogre::SceneManager* sceneManager, 
 		std::string name, 
-		std::string meshName,
+		std::string meshType,
 		int frequentcyRange, 
 		float threashold);
 

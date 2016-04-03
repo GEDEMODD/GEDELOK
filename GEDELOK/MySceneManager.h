@@ -15,6 +15,7 @@
 #include "MyFrameListener.h"
 #include "SongAnalyser.h"
 #include "Mesh.h"
+#include "Replicator.h"
 
 class MySceneManager
 {
@@ -27,7 +28,6 @@ private:
 	Ogre::SceneNode* _SinbadNode;
 	Ogre::Entity* _SinbadEnt;
 	void makeRoom();
-	std::vector<Mesh*> _meshes;
 
 public:
 	MySceneManager(void);
