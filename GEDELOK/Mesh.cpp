@@ -28,7 +28,9 @@ void Mesh::update(float value)
 {
 	logFile << getFrequentcyRange() << " :\t " << value << "\n";
 	Ogre::Vector3 currentScale = getScale();
+
 	this->setThreashold(0.97*this->getThreashold()+0.03*value);
+	
 	if ( value > this->getThreashold() ) {
 		setScale(Ogre::Vector3(currentScale.x + _scaling.x, currentScale.y + _scaling.y, currentScale.z + _scaling.z));
 	} else {

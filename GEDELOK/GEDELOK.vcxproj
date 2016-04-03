@@ -85,6 +85,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="bass.h" />
+    <ClInclude Include="DynamicLines.h" />
+    <ClInclude Include="DynamicRenderable.h" />
+    <ClInclude Include="LineBeat.h" />
     <ClInclude Include="MyLight.h" />
     <ClInclude Include="MyFrameListener.h" />
     <ClInclude Include="MySceneManager.h" />
@@ -96,6 +99,9 @@
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DynamicLines.cpp" />
+    <ClCompile Include="DynamicRenderable.cpp" />
+    <ClCompile Include="LineBeat.cpp" />
     <ClCompile Include="MyLight.cpp" />
     <ClCompile Include="MyFrameListener.cpp" />
     <ClCompile Include="Mesh.cpp" />

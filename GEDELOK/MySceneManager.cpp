@@ -140,6 +140,18 @@ void MySceneManager::createScene()
 	repp->setMaterial("Material.002");
 	_songAnalyser->addObserver(repp);
 
+	LineBeat * lb;
+
+	float linePos = 115;
+	for(int i = 1; i <= 8; i++) {
+		 lb = new LineBeat(_sceneManager, "willbeunnamed", "Donut.mesh", i-1, 1.5);
+		lb->setMaxSize(4);
+		lb->setMinSize(1);
+		lb->setPosition(Ogre::Vector3(170, 0, linePos));
+		_songAnalyser->addObserver(lb);
+		linePos+=7;
+	}
+
 	Ogre::SceneNode* particleShowcase1 = _sceneManager->getRootSceneNode()->createChildSceneNode();
 	particleShowcase1->setPosition(190, 0, -20);
 	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke1", "MySmoke1"), particleShowcase1, 2, 0.1));
@@ -159,6 +171,8 @@ void MySceneManager::createScene()
 	Ogre::SceneNode* particleShowcase5 = _sceneManager->getRootSceneNode()->createChildSceneNode();
 	particleShowcase5->setPosition(170, 0, -42.5);
 	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke5", "MySmoke2"), particleShowcase5, 0, 0.1));
+
+	
 }
 
 void MySceneManager::renderOneFrame()
@@ -221,27 +235,27 @@ void MySceneManager::makeRoom(){
         _sceneManager->getRootSceneNode()->attachObject(ent);
 
         ent = _sceneManager->createEntity("firstWall", "FirstWallPlane");
-        ent->setMaterialName("Material.001");
+        ent->setMaterialName("Material.003");
 
         _sceneManager->getRootSceneNode()->attachObject(ent);
 
 		ent = _sceneManager->createEntity("secondWall", "SecondWallPlane");
-        ent->setMaterialName("Material.001");
+        ent->setMaterialName("Material.003");
 
         _sceneManager->getRootSceneNode()->attachObject(ent);
 
 		ent = _sceneManager->createEntity("thirdWall", "ThirdWallPlane");
-        ent->setMaterialName("Material.001");
+        ent->setMaterialName("Material.003");
 
         _sceneManager->getRootSceneNode()->attachObject(ent);
 
 		ent = _sceneManager->createEntity("fourthWall", "FourthWallPlane");
-        ent->setMaterialName("Material.001");
+        ent->setMaterialName("Material.003");
 
         _sceneManager->getRootSceneNode()->attachObject(ent);
 
 		ent = _sceneManager->createEntity("roofWall", "Roof");
-        ent->setMaterialName("Material.001");
+        ent->setMaterialName("Material.003");
 
         _sceneManager->getRootSceneNode()->attachObject(ent);
 
