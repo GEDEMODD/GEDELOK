@@ -148,23 +148,23 @@ void MySceneManager::createScene()
 
 	Ogre::SceneNode* particleShowcase1 = _sceneManager->getRootSceneNode()->createChildSceneNode();
 	particleShowcase1->setPosition(190, 0, -20);
-	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke1", "MySmoke1"), particleShowcase1, 2, 0.1));
+	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke1", "MySmokeRed"), particleShowcase1, 2, 0.1));
 
 	Ogre::SceneNode* particleShowcase2 = _sceneManager->getRootSceneNode()->createChildSceneNode();
 	particleShowcase2->setPosition(190, 0, -65);
-	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke2", "MySmoke1"), particleShowcase2, 3, 0.1));
+	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke2", "MySmokeGreen"), particleShowcase2, 3, 0.1));
 
 	Ogre::SceneNode* particleShowcase3 = _sceneManager->getRootSceneNode()->createChildSceneNode();
 	particleShowcase3->setPosition(140, 0, -20);
-	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke3", "MySmoke1"), particleShowcase3, 5, 0.1));
+	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke3", "MySmokeBlue"), particleShowcase3, 5, 0.1));
 
 	Ogre::SceneNode* particleShowcase4 = _sceneManager->getRootSceneNode()->createChildSceneNode();
 	particleShowcase4->setPosition(140, 0, -65);
-	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke4", "MySmoke1"), particleShowcase4, 7, 0.1));
+	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke4", "MySmokeWhite"), particleShowcase4, 7, 0.1));
 
 	Ogre::SceneNode* particleShowcase5 = _sceneManager->getRootSceneNode()->createChildSceneNode();
 	particleShowcase5->setPosition(170, 0, -42.5);
-	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke5", "MySmoke2"), particleShowcase5, 0, 0.1));
+	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke5", "MySmoke1"), particleShowcase5, 0, 0.1));
 
 	
 }
