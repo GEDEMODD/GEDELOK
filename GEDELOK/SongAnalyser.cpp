@@ -33,7 +33,7 @@ SongAnalyser::SongAnalyser()
 
 	// Initilaze frequentcy ranges
 	for (int i = 0; i <= RANGES ; i++ )  {
-		ranges[i] = (FREQUENCIES/RANGES) * i;
+		ranges[i] = ((FREQUENCIES/2)/RANGES) * i;
 	}
 	_current = 0;
 }
@@ -49,6 +49,7 @@ void SongAnalyser::loadSongs()
 	_songs.push_back("../songs/UnitySong.mp3");
 	_songs.push_back("../songs/Idioteque.mp3");
 	_songs.push_back("../songs/dab.mp3");
+	_songs.push_back("../songs/yebb.mp3");
 	_songs.push_back("../songs/LovelyDay.mp3");
 	_songs.push_back("../songs/army.mp3");
 	_songs.push_back("../songs/808.mp3");
@@ -92,28 +93,12 @@ void SongAnalyser::update()
 {
 	// analyse channel data
 	float fft[FREQUENCIES];
-	BASS_ChannelGetData(chan, fft, BASS_DATA_FFT256); // get the FFT data
-
-	float value = fft[0];
-	float freq[8] = {0, 0, 0, 0, 0, 0, 0, 0 };
-	float avg[8] = {0, 0, 0, 0, 0, 0, 0, 0 };
-
-	for (int i = 0; i < FREQUENCIES; i++) { 
-		value = fft[i] <= 0.0 ? 0 : fft[i]; // make sure it's non-negative
-		logFile << "[" << i << "]:\t" << fft[i]  << " = " << value << "\n";
-		
-		// Summerise value for the frequentcy ranges
-		for (int j = 0; j < RANGES; j++) {
-			if ( i >= ranges[j] && i < ranges[j+1] ) {
-				freq[j] += value;
-			}
-		}
-	}
+	BASS_ChannelGetData(chan, fft, BASS_DATA_FFT2048); // get the FFT data
 
 	// Update observers...
 	for(unsigned int i = 0; i < obs.size(); i++) {
-		float value = freq[obs[i]->getFrequentcyRange()];
-		obs[i]->update(value > 0 ? value : 0);
+		int index = Ogre::Math::Ceil((obs[i]->getFrequentcyRange() * FREQUENCIES * 2) / 44100);
+		obs[i]->update(fft[index] < 0.0 ? -1 * fft[index] : fft[index]);
 	}
 }
 

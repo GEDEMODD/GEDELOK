@@ -8,7 +8,7 @@ private:
 	float _threashold;
 
 public:
-	Observer(int frequentcyRange, float threashold);
+	Observer(int frequentcyRange);
 	~Observer(void);
 	virtual void update(float value) = 0;
 

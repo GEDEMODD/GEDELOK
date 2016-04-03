@@ -21,8 +21,7 @@ public:
 	LineBeat(Ogre::SceneManager* sceneManager, 
 		std::string name, 
 		std::string meshName,
-		int frequentcyRange, 
-		float threashold);
+		int frequentcyRange);
 	~LineBeat(void);
 
 	void update(float value);

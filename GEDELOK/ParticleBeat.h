@@ -15,8 +15,7 @@ private:
 public:
 	ParticleBeat(Ogre::ParticleSystem * particleSystem, 
 		Ogre::SceneNode * sceneNode,
-		int frequentcyRange,
-		float threashold);
+		int frequentcyRange);
 
 	~ParticleBeat(void);
 

@@ -9,7 +9,7 @@ private:
 	Ogre::Light* _light;
 
 public:
-	MyLight(Ogre::Light* light, int frequentcyRange, float threashold);
+	MyLight(Ogre::Light* light, int frequentcyRange);
 	~MyLight(void);
 	void update(float value);
 };

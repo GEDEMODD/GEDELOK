@@ -5,8 +5,7 @@
 LineBeat::LineBeat(Ogre::SceneManager* sceneManager,  
 			   std::string name, 
 			   std::string meshName,
-			   int frequentcyRange, 
-			   float threashold) :  Observer(frequentcyRange, threashold)
+			   int frequentcyRange) : Observer(frequentcyRange)
 {
 	_points.push_back(Ogre::Vector3(0.0f, 0.0f, 0.0f ));
 	_points.push_back(Ogre::Vector3(0.0f, 10.0f, 0.0f ));
@@ -24,7 +23,7 @@ LineBeat::LineBeat(Ogre::SceneManager* sceneManager,
 	_node = sceneManager->getRootSceneNode()->createChildSceneNode();
 	_node->attachObject(_lines);
 
-	logFile.open("mesh.log");
+	logFile.open("linebeat.log");
 }
 
 

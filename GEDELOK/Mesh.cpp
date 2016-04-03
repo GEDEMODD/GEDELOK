@@ -1,13 +1,11 @@
 #include "stdafx.h"
 #include "Mesh.h"
 
-Mesh::Mesh(Ogre::SceneManager* sceneManager,  
-			   std::string name, 
+Mesh::Mesh(Ogre::SceneManager* sceneManager, 
 			   std::string meshType,
-			   int frequentcyRange, 
-			   float threashold) : Observer(frequentcyRange, threashold)
+			   int frequentcyRange) : Observer(frequentcyRange)
 {
-	_entity = sceneManager->createEntity(name, meshType);
+	_entity = sceneManager->createEntity(meshType);
 	_node = sceneManager->getRootSceneNode()->createChildSceneNode();
 	_node->attachObject(_entity);
 	_node->setScale(Ogre::Vector3(1, 1, 1));

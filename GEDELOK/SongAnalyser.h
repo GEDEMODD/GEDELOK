@@ -7,6 +7,7 @@
 #include "OgreSceneManager.h"
 #include "OgreSingleton.h"
 #include "OgreStringConverter.h"
+#include "OgreMath.h"
 
 #include <fstream>
 
@@ -20,9 +21,7 @@
 class SongAnalyser : public Ogre::Singleton<SongAnalyser>
 {
 
-#define SPECHEIGHT 127
-#define BANDS 127
-#define FREQUENCIES 128
+#define FREQUENCIES 1024 
 #define RANGES 8
 
 private:

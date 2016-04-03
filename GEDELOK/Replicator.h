@@ -23,8 +23,7 @@ public:
 	Replicator(Ogre::SceneManager* sceneManager, 
 		std::string name, 
 		std::string meshType,
-		int frequentcyRange, 
-		float threashold);
+		int frequentcyRange);
 
 	~Replicator(void);
 

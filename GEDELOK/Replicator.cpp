@@ -5,8 +5,7 @@
 Replicator::Replicator(Ogre::SceneManager* sceneManager,  
 			   std::string name, 
 			   std::string meshType,
-			   int frequentcyRange, 
-			   float threashold) : Observer(frequentcyRange, threashold)
+			   int frequentcyRange) : Observer(frequentcyRange)
 {
 	_sceneManager = sceneManager;
 	_meshName = name;
@@ -76,10 +75,10 @@ void Replicator::createChildren(int value)
 	Ogre::Real childMaxSize = getScale().x * 10;
 	Ogre::Real size = Ogre::Math::RangeRandom(childMinSize, childMaxSize);
 
-	childNode->setScale(size + value, size + value , size + value);
-	Ogre::Real x = Ogre::Math::RangeRandom(-200,200);
-	Ogre::Real z = Ogre::Math::RangeRandom(-200,200);
-	Ogre::Real y = Ogre::Math::RangeRandom(-200,200);
+	childNode->setScale(size + (value / 1.5), size + (value / 1.5), size + (value / 1.5));
+	Ogre::Real x = Ogre::Math::RangeRandom(-300,300);
+	Ogre::Real z = Ogre::Math::RangeRandom(-300,300);
+	Ogre::Real y = Ogre::Math::RangeRandom(-300,300);
 	childNode->setPosition(x, y, z);
 	children.push_back(childEnt);
 }

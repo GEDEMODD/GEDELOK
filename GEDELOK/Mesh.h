@@ -15,10 +15,8 @@ private:
 	std::ofstream logFile; 
 public:
 	Mesh(Ogre::SceneManager* sceneManager, 
-		std::string name, 
 		std::string meshType,
-		int frequentcyRange, 
-		float threashold);
+		int frequentcyRange);
 
 	~Mesh(void);
 

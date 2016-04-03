@@ -3,8 +3,7 @@
 
 ParticleBeat::ParticleBeat(Ogre::ParticleSystem * particleSystem, 
 						   Ogre::SceneNode * sceneNode,
-						   int frequentcyRange,
-						   float threashold) : Observer(frequentcyRange, threashold)
+						   int frequentcyRange) : Observer(frequentcyRange)
 {
 	_particleSystem = particleSystem;
 	_sceneNode = sceneNode;

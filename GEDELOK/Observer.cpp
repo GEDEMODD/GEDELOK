@@ -2,10 +2,10 @@
 #include "Observer.h"
 
 
-Observer::Observer(int frequentcyRange, float threashold)
+Observer::Observer(int frequentcyRange)
 {
 	_frequentcyRange = frequentcyRange;
-	_threashold = threashold;
+	_threashold = 0.0;
 }
 
 
