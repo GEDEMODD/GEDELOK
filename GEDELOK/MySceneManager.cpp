@@ -124,32 +124,32 @@ void MySceneManager::createScene()
 		_songAnalyser->addObserver(newMesh);
 	}
 
-	//Replicator* rep = new Replicator(_sceneManager, "rep", "sphere.mesh", 7342);
-	//rep->setPosition(Ogre::Vector3(170, 20, 42.5));
-	//rep->setScale(Ogre::Vector3(0.05, 0.05, 0.05));
-	//rep->setMaterial("Material.blue");
-	//_songAnalyser->addObserver(rep);
+	Replicator* rep = new Replicator(_sceneManager, "rep", "sphere.mesh", 7342);
+	rep->setPosition(Ogre::Vector3(170, 20, 42.5));
+	rep->setScale(Ogre::Vector3(0.05, 0.05, 0.05));
+	rep->setMaterial("Material.blue");
+	_songAnalyser->addObserver(rep);
 
-	//Replicator* repp = new Replicator(_sceneManager, "rep2", "sphere.mesh", 14685);
-	//repp->setPosition(Ogre::Vector3(170, 20, 42.5));
-	//repp->setScale(Ogre::Vector3(0.05, 0.05, 0.05));
-	//repp->setMaterial("Material.red");
-	//_songAnalyser->addObserver(repp);
-	//
-	//Replicator* reppp = new Replicator(_sceneManager, "reppp", "sphere.mesh", 22028);
-	//reppp->setPosition(Ogre::Vector3(170, 20, 42.5));
-	//reppp->setScale(Ogre::Vector3(0.05, 0.05, 0.05));
-	//reppp->setMaterial("Material.green");
-	//_songAnalyser->addObserver(reppp);
+	Replicator* repp = new Replicator(_sceneManager, "rep2", "sphere.mesh", 14685);
+	repp->setPosition(Ogre::Vector3(170, 20, 42.5));
+	repp->setScale(Ogre::Vector3(0.05, 0.05, 0.05));
+	repp->setMaterial("Material.red");
+	_songAnalyser->addObserver(repp);
+	
+	Replicator* reppp = new Replicator(_sceneManager, "reppp", "sphere.mesh", 22028);
+	reppp->setPosition(Ogre::Vector3(170, 20, 42.5));
+	reppp->setScale(Ogre::Vector3(0.05, 0.05, 0.05));
+	reppp->setMaterial("Material.green");
+	_songAnalyser->addObserver(reppp);
 
 	LineBeat * lb;
 
-	float linePos = 115;
+	float linePos = -160;
 	for(int i = 0; i <= 32; i++) {
 		lb = new LineBeat(_sceneManager, "willbeunnamed", "Donut.mesh", i * 688);
 		lb->setMaxSize(4);
 		lb->setMinSize(1);
-		lb->setPosition(Ogre::Vector3(170, 0, linePos));
+		lb->setPosition(Ogre::Vector3(-170, 0, linePos));
 		_songAnalyser->addObserver(lb);
 		linePos+=7;
 	}

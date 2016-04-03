@@ -40,19 +40,19 @@ void LineBeat::update(float value)
 	this->setThreashold(0.97*this->getThreashold()+0.03*value);
 	if ( value > this->getThreashold() ) {
 		if(_points[1].y < 30){
-			_points[1].y += 1;
-			_points[4].y += 1;
-			_points[2].y += 1;
-			_points[5].y += 1;
+			_points[1].y += 3;
+			_points[4].y += 3;
+			_points[2].y += 3;
+			_points[5].y += 3;
 		}
 			
 		
 	} else {
 		if(_points[1].y > 10){
-			_points[1].y -= 1;
-			_points[4].y -= 1;
-			_points[2].y -= 1;
-			_points[5].y -= 1;
+			_points[1].y -= 3;
+			_points[4].y -= 3;
+			_points[2].y -= 3;
+			_points[5].y -= 3;
 		}
 		
 	}
