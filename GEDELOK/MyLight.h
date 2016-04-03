@@ -14,5 +14,7 @@ public:
 	~MyLight(void);
 	void update(float value);
 	Ogre::Light* getLight();
+	std::ofstream logFile; 
+
 };
 
