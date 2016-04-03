@@ -1,8 +1,8 @@
 particle_system MySmoke1 {
 	// Make the particles use the "Examples/Smoke" material, and be 10x10 units large.
 	material			Examples/Smoke
-	particle_width		3
-	particle_height		3
+	particle_width		7
+	particle_height		7
 	// Make the emitter limit the emitter to have at maximum 500 particles active.
 	// And set the particle type as point, which always faces the camera.
 	quota			500
@@ -52,7 +52,7 @@ particle_system MySmoke1 {
 	// This will make the particles fly around like they have no tomorrow.
 	affector DirectionRandomiser {
 		// This indicates the magnitude of the random choices the particle makes.
-		randomness 	220
+		randomness 	150
 		// Scope governs the chance that a given particle takes a random direction change scale from 0..1 ~ 0-100%
 		scope 		1
 		// Here you can indicate if the particle should randomize its velocity or not. <true|false>
@@ -85,10 +85,10 @@ particle_system MySmoke1 {
 	// Make the emitters origin a point.
 	emitter Point {
 		// Make the emitter emit 30 particles per second.
-		emission_rate		100
+		emission_rate		70
 		// Emit the particles in the given direction, at a velocity of 20 units per second.
 		direction		0 1 0
-		velocity		100
+		velocity		150
 		colour 1 0 0 0
 		time_to_live 1.5
 		// Emit particles for 1 second at a time with a 1 second interval.
@@ -115,7 +115,7 @@ particle_system MySmoke2 {
 	// This will make the particles fly around like they have no tomorrow.
 	affector DirectionRandomiser {
 		// This indicates the magnitude of the random choices the particle makes.
-		randomness 	330
+		randomness 	150
 		// Scope governs the chance that a given particle takes a random direction change scale from 0..1 ~ 0-100%
 		scope 		1
 		// Here you can indicate if the particle should randomize its velocity or not. <true|false>
@@ -152,6 +152,257 @@ particle_system MySmoke2 {
 		// Emit the particles in the given direction, at a velocity of 20 units per second.
 		direction		0 1 0
 		velocity		150
+		colour 1 1 1 1
+		time_to_live 2
+		// Emit particles for 1 second at a time with a 1 second interval.
+		duration 	1000
+		// repeat_delay 1
+	}
+}
+
+
+
+particle_system MySmokeRed {
+	// Make the particles use the "Examples/Smoke" material, and be 10x10 units large.
+	material			Examples/Smoke
+	particle_width		3
+	particle_height		3
+	// Make the emitter limit the emitter to have at maximum 500 particles active.
+	// And set the particle type as point, which always faces the camera.
+	quota			500
+	billboard_type		point
+	// This affector will add the following values to the colour of the particles each second.
+	
+	// This affector will add the following values to the colour of the particles each second.
+	
+	
+	// This will make the particles fly around like they have no tomorrow.
+	affector DirectionRandomiser {
+		// This indicates the magnitude of the random choices the particle makes.
+		randomness 	150
+		// Scope governs the chance that a given particle takes a random direction change scale from 0..1 ~ 0-100%
+		scope 		1
+		// Here you can indicate if the particle should randomize its velocity or not. <true|false>
+		keep_velocity true
+	}
+//	affector DeflectorPlane {
+		//The point of the plane, note: the plane is infinite
+//		plane_point 	10 0 0
+		// The normal vector of the plane, the direction of the particles will be mirror around this normal.
+//		plane_normal 	-0.7 0.7 0
+		// The amount of velocity the particles retain after the collision.
+//		bounce 		1.0
+//	}
+
+	// You can provide more than one plane.
+//	affector DeflectorPlane {
+//		plane_point 	10 15 0
+//		plane_normal 	-0.7 -0.7 0
+//		bounce 		1.0
+//	}
+	affector DeflectorPlane {
+		plane_point 	0 -3 0
+		plane_normal 	0 1 0
+		bounce 		0.2
+	}
+	affector LinearForce
+	{
+	     force_vector 0 -100 0
+	}
+	// Make the emitters origin a point.
+	emitter Point {
+		// Make the emitter emit 30 particles per second.
+		emission_rate		100
+		// Emit the particles in the given direction, at a velocity of 20 units per second.
+		direction		0 1 0
+		velocity		75
+		colour 1 0 0 1
+		time_to_live 2
+		// Emit particles for 1 second at a time with a 1 second interval.
+		duration 	1000
+		// repeat_delay 1
+	}
+}
+
+particle_system MySmokeGreen {
+	// Make the particles use the "Examples/Smoke" material, and be 10x10 units large.
+	material			Examples/Smoke
+	particle_width		3
+	particle_height		3
+	// Make the emitter limit the emitter to have at maximum 500 particles active.
+	// And set the particle type as point, which always faces the camera.
+	quota			500
+	billboard_type		point
+	// This affector will add the following values to the colour of the particles each second.
+	
+	// This affector will add the following values to the colour of the particles each second.
+	
+	
+	// This will make the particles fly around like they have no tomorrow.
+	affector DirectionRandomiser {
+		// This indicates the magnitude of the random choices the particle makes.
+		randomness 	150
+		// Scope governs the chance that a given particle takes a random direction change scale from 0..1 ~ 0-100%
+		scope 		1
+		// Here you can indicate if the particle should randomize its velocity or not. <true|false>
+		keep_velocity true
+	}
+//	affector DeflectorPlane {
+		//The point of the plane, note: the plane is infinite
+//		plane_point 	10 0 0
+		// The normal vector of the plane, the direction of the particles will be mirror around this normal.
+//		plane_normal 	-0.7 0.7 0
+		// The amount of velocity the particles retain after the collision.
+//		bounce 		1.0
+//	}
+
+	// You can provide more than one plane.
+//	affector DeflectorPlane {
+//		plane_point 	10 15 0
+//		plane_normal 	-0.7 -0.7 0
+//		bounce 		1.0
+//	}
+	affector DeflectorPlane {
+		plane_point 	0 -3 0
+		plane_normal 	0 1 0
+		bounce 		0.2
+	}
+	affector LinearForce
+	{
+	     force_vector 0 -100 0
+	}
+	// Make the emitters origin a point.
+	emitter Point {
+		// Make the emitter emit 30 particles per second.
+		emission_rate		100
+		// Emit the particles in the given direction, at a velocity of 20 units per second.
+		direction		0 1 0
+		velocity		75
+		colour 0 1 0 1
+		time_to_live 2
+		// Emit particles for 1 second at a time with a 1 second interval.
+		duration 	1000
+		// repeat_delay 1
+	}
+}
+
+particle_system MySmokeBlue {
+	// Make the particles use the "Examples/Smoke" material, and be 10x10 units large.
+	material			Examples/Smoke
+	particle_width		3
+	particle_height		3
+	// Make the emitter limit the emitter to have at maximum 500 particles active.
+	// And set the particle type as point, which always faces the camera.
+	quota			500
+	billboard_type		point
+	// This affector will add the following values to the colour of the particles each second.
+	
+	// This affector will add the following values to the colour of the particles each second.
+	
+	
+	// This will make the particles fly around like they have no tomorrow.
+	affector DirectionRandomiser {
+		// This indicates the magnitude of the random choices the particle makes.
+		randomness 	150
+		// Scope governs the chance that a given particle takes a random direction change scale from 0..1 ~ 0-100%
+		scope 		1
+		// Here you can indicate if the particle should randomize its velocity or not. <true|false>
+		keep_velocity true
+	}
+//	affector DeflectorPlane {
+		//The point of the plane, note: the plane is infinite
+//		plane_point 	10 0 0
+		// The normal vector of the plane, the direction of the particles will be mirror around this normal.
+//		plane_normal 	-0.7 0.7 0
+		// The amount of velocity the particles retain after the collision.
+//		bounce 		1.0
+//	}
+
+	// You can provide more than one plane.
+//	affector DeflectorPlane {
+//		plane_point 	10 15 0
+//		plane_normal 	-0.7 -0.7 0
+//		bounce 		1.0
+//	}
+	affector DeflectorPlane {
+		plane_point 	0 -3 0
+		plane_normal 	0 1 0
+		bounce 		0.2
+	}
+	affector LinearForce
+	{
+	     force_vector 0 -100 0
+	}
+	// Make the emitters origin a point.
+	emitter Point {
+		// Make the emitter emit 30 particles per second.
+		emission_rate		100
+		// Emit the particles in the given direction, at a velocity of 20 units per second.
+		direction		0 1 0
+		velocity		75
+		colour 0 0 1 1
+		time_to_live 2
+		// Emit particles for 1 second at a time with a 1 second interval.
+		duration 	1000
+		// repeat_delay 1
+	}
+}
+
+
+particle_system MySmokeWhite {
+	// Make the particles use the "Examples/Smoke" material, and be 10x10 units large.
+	material			Examples/Smoke
+	particle_width		3
+	particle_height		3
+	// Make the emitter limit the emitter to have at maximum 500 particles active.
+	// And set the particle type as point, which always faces the camera.
+	quota			500
+	billboard_type		point
+	// This affector will add the following values to the colour of the particles each second.
+	
+	// This affector will add the following values to the colour of the particles each second.
+	
+	
+	// This will make the particles fly around like they have no tomorrow.
+	affector DirectionRandomiser {
+		// This indicates the magnitude of the random choices the particle makes.
+		randomness 	150
+		// Scope governs the chance that a given particle takes a random direction change scale from 0..1 ~ 0-100%
+		scope 		1
+		// Here you can indicate if the particle should randomize its velocity or not. <true|false>
+		keep_velocity true
+	}
+//	affector DeflectorPlane {
+		//The point of the plane, note: the plane is infinite
+//		plane_point 	10 0 0
+		// The normal vector of the plane, the direction of the particles will be mirror around this normal.
+//		plane_normal 	-0.7 0.7 0
+		// The amount of velocity the particles retain after the collision.
+//		bounce 		1.0
+//	}
+
+	// You can provide more than one plane.
+//	affector DeflectorPlane {
+//		plane_point 	10 15 0
+//		plane_normal 	-0.7 -0.7 0
+//		bounce 		1.0
+//	}
+	affector DeflectorPlane {
+		plane_point 	0 -3 0
+		plane_normal 	0 1 0
+		bounce 		0.2
+	}
+	affector LinearForce
+	{
+	     force_vector 0 -100 0
+	}
+	// Make the emitters origin a point.
+	emitter Point {
+		// Make the emitter emit 30 particles per second.
+		emission_rate		100
+		// Emit the particles in the given direction, at a velocity of 20 units per second.
+		direction		0 1 0
+		velocity		75
 		colour 1 1 1 1
 		time_to_live 2
 		// Emit particles for 1 second at a time with a 1 second interval.

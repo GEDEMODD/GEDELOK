@@ -85,20 +85,20 @@ void MySceneManager::createScene()
 	Ogre::Entity* ground = _sceneManager->createEntity("LightPlaneEntity", "plane");
 	_sceneManager->getRootSceneNode()->createChildSceneNode()->attachObject(ground);
 	ground->setMaterialName("shader/texture");
-
-	// Add one directional light
+	
+	//// Add one directional light
 	Ogre::Light* light = _sceneManager->createLight( "Light1" );
 	light->setType( Ogre::Light::LT_DIRECTIONAL );
 	light->setDiffuseColour(1,1,0.7);
 	light->setDirection( Ogre::Vector3(1, -1, -0.3) );
 
-	// Add one directional light
+	//// Add one directional light
 	Ogre::Light* light2 = _sceneManager->createLight( "Light2" );
 	light2->setType( Ogre::Light::LT_DIRECTIONAL );
 	light2->setDiffuseColour(0.5, 1, 0.5);
 	light2->setSpecularColour(1,1,1);
 	light2->setDirection( Ogre::Vector3(-1, -1, 0.5) );
-
+	
 
 	// add shadows 
 	_sceneManager->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
@@ -161,23 +161,63 @@ void MySceneManager::createScene()
 
 	Ogre::SceneNode* particleShowcase1 = _sceneManager->getRootSceneNode()->createChildSceneNode();
 	particleShowcase1->setPosition(190, 0, -20);
-	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke1", "MySmoke1"), particleShowcase1, 2));
+	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke1", "MySmokeRed"), particleShowcase1, 2));
 
 	Ogre::SceneNode* particleShowcase2 = _sceneManager->getRootSceneNode()->createChildSceneNode();
 	particleShowcase2->setPosition(190, 0, -65);
-	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke2", "MySmoke1"), particleShowcase2, 3));
+	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke2", "MySmokeGreen"), particleShowcase2, 3));
 
 	Ogre::SceneNode* particleShowcase3 = _sceneManager->getRootSceneNode()->createChildSceneNode();
 	particleShowcase3->setPosition(140, 0, -20);
-	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke3", "MySmoke1"), particleShowcase3, 5));
+	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke3", "MySmokeBlue"), particleShowcase3, 5));
 
 	Ogre::SceneNode* particleShowcase4 = _sceneManager->getRootSceneNode()->createChildSceneNode();
 	particleShowcase4->setPosition(140, 0, -65);
-	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke4", "MySmoke1"), particleShowcase4, 7));
+	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke4", "MySmokeWhite"), particleShowcase4, 7));
 
 	Ogre::SceneNode* particleShowcase5 = _sceneManager->getRootSceneNode()->createChildSceneNode();
 	particleShowcase5->setPosition(170, 0, -42.5);
-	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke5", "MySmoke2"), particleShowcase5, 0));
+	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke5", "MySmoke1"), particleShowcase5, 0));
+
+	//Light showcase
+	Ogre::Entity* topSphere;
+	Ogre::SceneNode* topSphereNode;
+	topSphere = _sceneManager->createEntity("topSphere", "sphere.mesh");
+	topSphereNode = _sceneManager->getRootSceneNode()->createChildSceneNode();
+	topSphereNode->setPosition(-162.5,25,142.5);
+	topSphereNode->setScale(0.6,0.01,0.6);
+	topSphereNode->attachObject(topSphere);
+
+	Ogre::Entity* sphere;
+	Ogre::SceneNode* sphereNode;
+	MyLight* spotlight;
+	for(int i = 0; i < 9; i++){
+		//Sphere
+		sphere = _sceneManager->createEntity("WhiteCube" + std::to_string(i), "sphere.mesh");
+		sphereNode = _sceneManager->getRootSceneNode()->createChildSceneNode();
+		sphereNode->setPosition(-172.5, 0, 122.5 + (i*6));
+		sphereNode->setScale(0.01,0.01,0.01);
+		sphereNode->attachObject(sphere);
+		//Light
+		spotlight = new MyLight(_sceneManager->createLight("spotlight" + std::to_string(i)), i % 8);
+		spotlight->getLight()->setType( Ogre::Light::LT_SPOTLIGHT);
+		/*if(i < 3){
+			spotlight->getLight()->setDiffuseColour(1,0,0);
+			spotlight->getLight()->setSpecularColour(1,0,0);
+		} else if(i < 6){
+			spotlight->getLight()->setDiffuseColour(0,1,0);
+			spotlight->getLight()->setSpecularColour(0,1,0);
+		} else {
+			spotlight->getLight()->setDiffuseColour(0,0,1);
+			spotlight->getLight()->setSpecularColour(0,0,1);
+		}*/
+		spotlight->getLight()->setDiffuseColour(1,1,1);
+		spotlight->getLight()->setSpecularColour(1,1,1);
+		spotlight->getLight()->setDirection(0, -1, 0);
+		spotlight->getLight()->setPosition(Ogre::Vector3(-172.5, 20, 122.5 + (i*6)));
+		spotlight->getLight()->setSpotlightRange(Ogre::Degree(10), Ogre::Degree(20));
+		_songAnalyser->addObserver(spotlight);
+	}
 }
 
 void MySceneManager::renderOneFrame()
@@ -281,7 +321,5 @@ void MySceneManager::makeRoom(){
 					boxNode->setScale(boxW, boxH, boxL);
 					boxNode->attachObject(box);
 				}
-		}
-		
-		
+		}	
 }

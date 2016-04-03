@@ -9,6 +9,7 @@ private:
 
 public:
 	Observer(int frequentcyRange);
+	Observer();
 	~Observer(void);
 	virtual void update(float value) = 0;
 
