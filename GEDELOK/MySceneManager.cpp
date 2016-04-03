@@ -121,33 +121,63 @@ void MySceneManager::createScene()
 	_songAnalyser->addObserver(new MyLight(_sceneManager->createLight( "Light3" ), 1, 0.5));
 
 	for(int i = 1; i <= 8; i++) {
-		_meshes.push_back(new Mesh(_sceneManager, "donutShowcase" + i, "Donut.mesh", i-1, 1.5/pow(10, i)));
-		_meshes.back()->setPosition(Ogre::Vector3(170, i*10, -142.5));
-		_meshes.back()->setMaxSize( 30/i+5 );
-		_meshes.back()->setMinSize( 10/i );
-		_meshes.back()->setScaling(Ogre::Vector3(2.0, 2.0, 2.0));
-		_songAnalyser->addObserver(_meshes.back());
+		Mesh * newMesh = new Mesh(_sceneManager, "donutShowcase" + i, "Donut.mesh", i-1, 1.5/pow(10, i));
+		newMesh->setPosition(Ogre::Vector3(170, i*10, -142.5));
+		newMesh->setMaxSize( 30/i+5 );
+		newMesh->setMinSize( 10/i );
+		newMesh->setScaling(Ogre::Vector3(2.0, 2.0, 2.0));
+		_songAnalyser->addObserver(newMesh);
+	}
+
+	Replicator* rep = new Replicator(_sceneManager, "rep", "sphere.mesh", 7, 0.3);
+	rep->setPosition(Ogre::Vector3(170, 20, 42.5));
+	rep->setScale(Ogre::Vector3(0.05, 0.05, 0.05));
+	rep->setMaterial("Material.blue");
+	_songAnalyser->addObserver(rep);
+
+	Replicator* repp = new Replicator(_sceneManager, "rep2", "sphere.mesh", 4, 0.3);
+	repp->setPosition(Ogre::Vector3(170, 20, 42.5));
+	repp->setScale(Ogre::Vector3(0.05, 0.05, 0.05));
+	repp->setMaterial("Material.red");
+	_songAnalyser->addObserver(repp);
+
+	Replicator* reppp = new Replicator(_sceneManager, "reppp", "sphere.mesh", 1, 0.3);
+	reppp->setPosition(Ogre::Vector3(170, 20, 42.5));
+	reppp->setScale(Ogre::Vector3(0.05, 0.05, 0.05));
+	reppp->setMaterial("Material.green");
+	_songAnalyser->addObserver(reppp);
+
+	LineBeat * lb;
+
+	float linePos = 115;
+	for(int i = 1; i <= 8; i++) {
+		 lb = new LineBeat(_sceneManager, "willbeunnamed", "Donut.mesh", i-1, 1.5);
+		lb->setMaxSize(4);
+		lb->setMinSize(1);
+		lb->setPosition(Ogre::Vector3(170, 0, linePos));
+		_songAnalyser->addObserver(lb);
+		linePos+=7;
 	}
 
 	Ogre::SceneNode* particleShowcase1 = _sceneManager->getRootSceneNode()->createChildSceneNode();
 	particleShowcase1->setPosition(190, 0, -20);
-	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke1", "MySmoke1"), particleShowcase1, 2, 0.1));
+	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke1", "MySmokeRed"), particleShowcase1, 2, 0.1));
 
 	Ogre::SceneNode* particleShowcase2 = _sceneManager->getRootSceneNode()->createChildSceneNode();
 	particleShowcase2->setPosition(190, 0, -65);
-	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke2", "MySmoke1"), particleShowcase2, 3, 0.1));
+	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke2", "MySmokeGreen"), particleShowcase2, 3, 0.1));
 
 	Ogre::SceneNode* particleShowcase3 = _sceneManager->getRootSceneNode()->createChildSceneNode();
 	particleShowcase3->setPosition(140, 0, -20);
-	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke3", "MySmoke1"), particleShowcase3, 5, 0.1));
+	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke3", "MySmokeBlue"), particleShowcase3, 5, 0.1));
 
 	Ogre::SceneNode* particleShowcase4 = _sceneManager->getRootSceneNode()->createChildSceneNode();
 	particleShowcase4->setPosition(140, 0, -65);
-	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke4", "MySmoke1"), particleShowcase4, 7, 0.1));
+	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke4", "MySmokeWhite"), particleShowcase4, 7, 0.1));
 
 	Ogre::SceneNode* particleShowcase5 = _sceneManager->getRootSceneNode()->createChildSceneNode();
 	particleShowcase5->setPosition(170, 0, -42.5);
-	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke5", "MySmoke2"), particleShowcase5, 0, 0.1));
+	_songAnalyser->addObserver( new ParticleBeat(_sceneManager->createParticleSystem("smoke5", "MySmoke1"), particleShowcase5, 0, 0.1));
 
 	//Light showcase
 	Ogre::Entity* topSphere;
@@ -171,7 +201,7 @@ void MySceneManager::createScene()
 		//Light
 		spotlight = new MyLight(_sceneManager->createLight("spotlight" + std::to_string(i)), i % 8, 1);
 		spotlight->getLight()->setType( Ogre::Light::LT_SPOTLIGHT);
-		if(i < 3){
+		/*if(i < 3){
 			spotlight->getLight()->setDiffuseColour(1,0,0);
 			spotlight->getLight()->setSpecularColour(1,0,0);
 		} else if(i < 6){
@@ -180,12 +210,13 @@ void MySceneManager::createScene()
 		} else {
 			spotlight->getLight()->setDiffuseColour(0,0,1);
 			spotlight->getLight()->setSpecularColour(0,0,1);
-		}
+		}*/
+		spotlight->getLight()->setDiffuseColour(1,1,1);
+		spotlight->getLight()->setSpecularColour(1,1,1);
 		spotlight->getLight()->setDirection(0, -1, 0);
 		spotlight->getLight()->setPosition(Ogre::Vector3(-172.5, 20, 122.5 + (i*6)));
 		spotlight->getLight()->setSpotlightRange(Ogre::Degree(10), Ogre::Degree(20));
 		_songAnalyser->addObserver(spotlight);
-		
 	}
 }
 
@@ -249,27 +280,27 @@ void MySceneManager::makeRoom(){
         _sceneManager->getRootSceneNode()->attachObject(ent);
 
         ent = _sceneManager->createEntity("firstWall", "FirstWallPlane");
-        ent->setMaterialName("Material.001");
+        ent->setMaterialName("Material.003");
 
         _sceneManager->getRootSceneNode()->attachObject(ent);
 
 		ent = _sceneManager->createEntity("secondWall", "SecondWallPlane");
-        ent->setMaterialName("Material.001");
+        ent->setMaterialName("Material.003");
 
         _sceneManager->getRootSceneNode()->attachObject(ent);
 
 		ent = _sceneManager->createEntity("thirdWall", "ThirdWallPlane");
-        ent->setMaterialName("Material.001");
+        ent->setMaterialName("Material.003");
 
         _sceneManager->getRootSceneNode()->attachObject(ent);
 
 		ent = _sceneManager->createEntity("fourthWall", "FourthWallPlane");
-        ent->setMaterialName("Material.001");
+        ent->setMaterialName("Material.003");
 
         _sceneManager->getRootSceneNode()->attachObject(ent);
 
 		ent = _sceneManager->createEntity("roofWall", "Roof");
-        ent->setMaterialName("Material.001");
+        ent->setMaterialName("Material.003");
 
         _sceneManager->getRootSceneNode()->attachObject(ent);
 

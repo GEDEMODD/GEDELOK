@@ -22,7 +22,9 @@ Ogre::Light* MyLight::getLight()
 void MyLight::update(float value)
 {
 	//_light->setPowerScale(value);
-	for (int i = 0; i < 8; i++){
+	this->setThreashold(0.97*this->getThreashold()+0.03*value);
+
+	/*for (int i = 0; i < 8; i++){
 		if(getFrequentcyRange() == i){
 			if(_light->isVisible()){
 				_light->setVisible(0);
@@ -30,5 +32,5 @@ void MyLight::update(float value)
 				_light->setVisible(1);
 			}	
 		}
-	}
+	}*/
 }
