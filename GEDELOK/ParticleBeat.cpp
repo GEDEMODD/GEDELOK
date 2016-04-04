@@ -3,15 +3,13 @@
 
 ParticleBeat::ParticleBeat(Ogre::ParticleSystem * particleSystem, 
 						   Ogre::SceneNode * sceneNode,
-						   int frequentcyRange) : Observer(frequentcyRange)
+						   int frequencyRange) : Observer(frequencyRange)
 {
 	_particleSystem = particleSystem;
 	_sceneNode = sceneNode;
 	_active = false;
 	_sceneNode->attachObject(_particleSystem);
-	//_particleSystem->setVisible(false);
 	_particleSystem->setEmitting(false);
-
 }
 
 
@@ -21,8 +19,8 @@ ParticleBeat::~ParticleBeat(void)
 
 void ParticleBeat::update(float value)
 {	
-	this->setThreashold(0.97*this->getThreashold()+0.03*value);
-	if ( value > this->getThreashold() && !isActive() ) {
+	this->setThreshold(0.97*this->getThreshold()+0.03*value);
+	if ( value > this->getThreshold() && !isActive() ) {
 		start();
 	} else {
 		stop();
@@ -34,15 +32,12 @@ void ParticleBeat::start()
 	_active = true;
 	_startTime = time(0);
 	_particleSystem->setEmitting(true);
-	//_particleSystem->setVisible(true);
 }
 
 void ParticleBeat::stop()
 {
 	_active = false;
 	_particleSystem->setEmitting(false);
-	//_particleSystem->setVisible(false);
-	//_particleSystem->clear();
 }
 
 bool ParticleBeat::isActive()

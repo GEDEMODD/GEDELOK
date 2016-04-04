@@ -5,7 +5,7 @@
 Replicator::Replicator(Ogre::SceneManager* sceneManager,  
 			   std::string name, 
 			   std::string meshType,
-			   int frequentcyRange) : Observer(frequentcyRange)
+			   int frequencyRange) : Observer(frequencyRange)
 {
 	_sceneManager = sceneManager;
 	_meshName = name;
@@ -16,7 +16,7 @@ Replicator::Replicator(Ogre::SceneManager* sceneManager,
 	//_node->setScale(Ogre::Vector3(1, 1, 1));
 	_node->setVisible(false);
 	_node->setPosition(Ogre::Vector3(0, 0, 0));
-	logFile.open("replicator.log");
+	//logFile.open("replicator.log");
 
 	_materialName = "";
 }
@@ -26,16 +26,16 @@ Replicator::~Replicator(void)
 {
 	//delete _entity;
 	//delete _node;
-	logFile.close();
+	//logFile.close();
 }
 
 void Replicator::update(float value)
 {
 	//logFile << getFrequentcyRange() << " :\t " << value << "\n";
 	Ogre::Vector3 currentScale = getScale();
-	this->setThreashold(0.7*this->getThreashold() + 0.4*value);
+	this->setThreshold(0.7*this->getThreshold() + 0.4*value);
 
-	float result = value / this->getThreashold();
+	float result = value / this->getThreshold();
 	int numOfChildrenToGenerate = result > 1.0 ? (result - value) * 2 : 0;
 	//logFile  << value / this->getThreashold() << "\t" << (result - value) * 10 << "\t" << numOfChildrenToGenerate << "\n";
 	for ( int i = 0; i < numOfChildrenToGenerate; i++ ) {

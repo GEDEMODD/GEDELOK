@@ -4,10 +4,10 @@
 Observer::Observer() {}
 
 
-Observer::Observer(int frequentcyRange)
+Observer::Observer(int frequencyRange)
 {
-	_frequentcyRange = frequentcyRange;
-	_threashold = 0.0;
+	_frequencyRange = frequencyRange;
+	_threshold = 0.0;
 }
 
 
@@ -15,10 +15,10 @@ Observer::~Observer(void)
 {
 }
 
-int Observer::getFrequentcyRange() { return this->_frequentcyRange; }
+int Observer::getFrequencyRange() { return this->_frequencyRange; }
 
-void Observer::setFrequentcyRange(int range) { _frequentcyRange = range; } 
+void Observer::setFrequencyRange(int range) { _frequencyRange = range; } 
 
-float Observer::getThreashold() { return _threashold; }
+float Observer::getThreshold() { return _threshold; }
 
-void Observer::setThreashold(float threashold){ _threashold = threashold; }
+void Observer::setThreshold(float threashold){ _threshold = threashold; }

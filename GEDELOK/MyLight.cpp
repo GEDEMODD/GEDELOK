@@ -2,21 +2,21 @@
 #include "MyLight.h"
 	
 
-MyLight::MyLight(Ogre::Light* light, int frequentcyRange) : Observer(frequentcyRange)
+MyLight::MyLight(Ogre::Light* light, int frequencyRange) : Observer(frequencyRange)
 {
 	_light = light;
-	logFile.open("light.log");
+	//logFile.open("light.log");
 }
 
 MyLight::MyLight()
 { 
-	logFile.open("light.log");
+	//logFile.open("light.log");
 }
 
 
 MyLight::~MyLight(void)
 {
-	logFile.close();
+	//logFile.close();
 }
 
 Ogre::Light* MyLight::getLight()
@@ -27,8 +27,8 @@ Ogre::Light* MyLight::getLight()
 void MyLight::update(float value)
 {
 	//_light->setPowerScale(value);
-	this->setThreashold(0.9*this->getThreashold()+0.1*value);
-	if ( value > getThreashold() ) {
+	this->setThreshold(0.9*this->getThreshold()+0.1*value);
+	if ( value > getThreshold() ) {
 		_light->setVisible(1);
 	} else {
 		if ( Ogre::Math::RangeRandom(0,1) > 0.3 ) {

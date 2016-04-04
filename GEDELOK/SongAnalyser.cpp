@@ -97,7 +97,7 @@ void SongAnalyser::update()
 
 	// Update observers...
 	for(unsigned int i = 0; i < obs.size(); i++) {
-		int index = Ogre::Math::Ceil((obs[i]->getFrequentcyRange() * FREQUENCIES * 2) / 44100);
+		int index = Ogre::Math::Ceil((obs[i]->getFrequencyRange() * FREQUENCIES * 2) / 44100);
 		obs[i]->update(fft[index] < 0.0 ? -1 * fft[index] : fft[index]);
 	}
 }

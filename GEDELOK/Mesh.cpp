@@ -3,7 +3,7 @@
 
 Mesh::Mesh(Ogre::SceneManager* sceneManager, 
 			   std::string meshType,
-			   int frequentcyRange) : Observer(frequentcyRange)
+			   int frequencyRange) : Observer(frequencyRange)
 {
 	_entity = sceneManager->createEntity(meshType);
 	_node = sceneManager->getRootSceneNode()->createChildSceneNode();
@@ -11,7 +11,7 @@ Mesh::Mesh(Ogre::SceneManager* sceneManager,
 	_node->setScale(Ogre::Vector3(1, 1, 1));
 	_node->setPosition(Ogre::Vector3(0, 0, 0));
 	_maxSize = 10;
-	logFile.open("mesh.log");
+	//logFile.open("mesh.log");
 }
 
 
@@ -19,17 +19,17 @@ Mesh::~Mesh(void)
 {
 	//delete _entity;
 	//delete _node;
-	logFile.close();
+	//logFile.close();
 }
 
 void Mesh::update(float value)
 {
-	logFile << getFrequentcyRange() << " :\t " << value << "\n";
+	//logFile << getFrequencyRange() << " :\t " << value << "\n";
 	Ogre::Vector3 currentScale = getScale();
 
-	this->setThreashold(0.97*this->getThreashold()+0.03*value);
+	this->setThreshold(0.97*this->getThreshold()+0.03*value);
 	
-	if ( value > this->getThreashold() ) {
+	if ( value > this->getThreshold() ) {
 		setScale(Ogre::Vector3(currentScale.x + _scaling.x, currentScale.y + _scaling.y, currentScale.z + _scaling.z));
 	} else {
 		setScale(Ogre::Vector3(currentScale.x - (_scaling.x * 1.1), currentScale.y - (_scaling.x * 1.1), currentScale.z - (_scaling.x * 1.1)));

@@ -69,10 +69,8 @@ int MySceneManager::startup()
 
 void MySceneManager::createScene()
 {
-	//Ogre::Entity* ent = _MySceneManager->createEntity("Sinbad", "Sinbad.mesh");
 	_SinbadEnt = _sceneManager->createEntity("Sinbad.mesh");
 	printf("%s\n", _sceneManager->getName());
-	//_MySceneManager->getRootSceneNode()->attachObject(ent);
 	_sceneManager->setAmbientLight(Ogre::ColourValue(.5f,.5f,.5f));
 
 	// Define plane
@@ -86,13 +84,13 @@ void MySceneManager::createScene()
 	_sceneManager->getRootSceneNode()->createChildSceneNode()->attachObject(ground);
 	ground->setMaterialName("shader/texture");
 	
-	//// Add one directional light
+	// Add one directional light
 	Ogre::Light* light = _sceneManager->createLight( "Light1" );
 	light->setType( Ogre::Light::LT_DIRECTIONAL );
 	light->setDiffuseColour(1,1,0.7);
 	light->setDirection( Ogre::Vector3(1, -1, -0.3) );
 
-	//// Add one directional light
+	// Add one directional light
 	Ogre::Light* light2 = _sceneManager->createLight( "Light2" );
 	light2->setType( Ogre::Light::LT_DIRECTIONAL );
 	light2->setDiffuseColour(0.5, 1, 0.5);
