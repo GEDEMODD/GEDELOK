@@ -131,13 +131,13 @@ void MySceneManager::createScene()
 	Replicator* repp = new Replicator(_sceneManager, "rep2", "sphere.mesh", 14685);
 	repp->setPosition(Ogre::Vector3(170, 20, 42.5));
 	repp->setScale(Ogre::Vector3(0.05, 0.05, 0.05));
-	repp->setMaterial("Material.red");
+	repp->setMaterial("Material.green");
 	_songAnalyser->addObserver(repp);
 	
 	Replicator* reppp = new Replicator(_sceneManager, "reppp", "sphere.mesh", 22028);
 	reppp->setPosition(Ogre::Vector3(170, 20, 42.5));
 	reppp->setScale(Ogre::Vector3(0.05, 0.05, 0.05));
-	reppp->setMaterial("Material.green");
+	reppp->setMaterial("Material.red");
 	_songAnalyser->addObserver(reppp);
 
 	LineBeat * lb;
@@ -174,45 +174,45 @@ void MySceneManager::createScene()
 
 	//Light showcase
 	// cast shadow for light showcase
-	Ogre::Entity* topSphere;
-	Ogre::SceneNode* topSphereNode;
-	topSphere = _sceneManager->createEntity("topSphere", "sphere.mesh");
-	topSphereNode = _sceneManager->getRootSceneNode()->createChildSceneNode();
-	topSphereNode->setPosition(-162.5,25,142.5);
-	topSphereNode->setScale(0.6,0.01,0.6);
-	topSphereNode->attachObject(topSphere);
 
-	// Create spheres and lights
-	Ogre::Entity* sphere;
-	Ogre::SceneNode* sphereNode;
-	MyLight* spotlight;
-	for(int i = 0; i < 9; i++){
-		//Sphere
-		sphere = _sceneManager->createEntity("WhiteCube" + std::to_string(i), "sphere.mesh");
-		sphere->setMaterialName("Material.balls");
-		sphereNode = _sceneManager->getRootSceneNode()->createChildSceneNode();
-		sphereNode->setPosition(-172.5, 0, 122.5 + (i*6));
-		sphereNode->setScale(0.02,0.02,0.02);
-		sphereNode->attachObject(sphere);
-		//Light
-		spotlight = new MyLight(_sceneManager->createLight("spotlight" + std::to_string(i)), i * 2447);
-		spotlight->getLight()->setType( Ogre::Light::LT_SPOTLIGHT);
-		if(i < 3){
-			spotlight->getLight()->setDiffuseColour(1,0,0);
-			spotlight->getLight()->setSpecularColour(1,0,0);
-		} else if(i < 6){
-			spotlight->getLight()->setDiffuseColour(0,1,0);
-			spotlight->getLight()->setSpecularColour(0,1,0);
-		} else {
-			spotlight->getLight()->setDiffuseColour(0,0,1);
-			spotlight->getLight()->setSpecularColour(0,0,1);
-		}
-		spotlight->getLight()->setDirection(-1, -1, 0);
-		sphereNode->attachObject(spotlight->getLight());
-		spotlight->getLight()->setPosition(Ogre::Vector3(10, 10, 0));
-		spotlight->getLight()->setSpotlightRange(Ogre::Degree(10), Ogre::Degree(20));
-		_songAnalyser->addObserver(spotlight);
-	}
+	//Ogre::Entity* topSphere;
+	//Ogre::SceneNode* topSphereNode;
+	//topSphere = _sceneManager->createEntity("topSphere", "sphere.mesh");
+	//topSphereNode = _sceneManager->getRootSceneNode()->createChildSceneNode();
+	//topSphereNode->setPosition(-162.5,25,142.5);
+	//topSphereNode->setScale(0.6,0.01,0.6);
+	//topSphereNode->attachObject(topSphere);
+	////// Create spheres and lights
+	//Ogre::Entity* sphere;
+	//Ogre::SceneNode* sphereNode;
+	//MyLight* spotlight;
+	//for(int i = 0; i < 9; i++){
+	//	//Sphere
+	//	sphere = _sceneManager->createEntity("WhiteCube" + std::to_string(i), "sphere.mesh");
+	//	sphere->setMaterialName("Material.balls");
+	//	sphereNode = _sceneManager->getRootSceneNode()->createChildSceneNode();
+	//	sphereNode->setPosition(-172.5, 0, 122.5 + (i*6));
+	//	sphereNode->setScale(0.02,0.02,0.02);
+	//	sphereNode->attachObject(sphere);
+	//	//Light
+	//	spotlight = new MyLight(_sceneManager->createLight("spotlight" + std::to_string(i)), i * 2447);
+	//	spotlight->getLight()->setType( Ogre::Light::LT_SPOTLIGHT);
+	//	if(i < 3){
+	//		spotlight->getLight()->setDiffuseColour(1,0,0);
+	//		spotlight->getLight()->setSpecularColour(1,0,0);
+	//	} else if(i < 6){
+	//		spotlight->getLight()->setDiffuseColour(0,1,0);
+	//		spotlight->getLight()->setSpecularColour(0,1,0);
+	//	} else {
+	//		spotlight->getLight()->setDiffuseColour(0,0,1);
+	//		spotlight->getLight()->setSpecularColour(0,0,1);
+	//	}
+	//	spotlight->getLight()->setDirection(-1, -1, 0);
+	//	sphereNode->attachObject(spotlight->getLight());
+	//	spotlight->getLight()->setPosition(Ogre::Vector3(10, 10, 0));
+	//	spotlight->getLight()->setSpotlightRange(Ogre::Degree(10), Ogre::Degree(20));
+	//	_songAnalyser->addObserver(spotlight);
+	//}
 }
 
 void MySceneManager::renderOneFrame()

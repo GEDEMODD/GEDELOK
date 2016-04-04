@@ -49,10 +49,8 @@ void SongAnalyser::loadSongs()
 	_songs.push_back("../songs/UnitySong.mp3");
 	_songs.push_back("../songs/Idioteque.mp3");
 	_songs.push_back("../songs/dab.mp3");
-	_songs.push_back("../songs/yebb.mp3");
 	_songs.push_back("../songs/LovelyDay.mp3");
-	_songs.push_back("../songs/army.mp3");
-	_songs.push_back("../songs/808.mp3");
+	_songs.push_back("../songs/Paris.mp3");
 }
 
 void SongAnalyser::changeSong()
